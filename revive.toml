@@ -156,7 +156,7 @@ arguments = [120]
 
 # This rule warns when variable or package naming conventions are not followed.
 [rule.var-naming]
-arguments = [["HTTP", "ID", "JSON", "API", "NTSC"],[]]
+arguments = [["HTTP", "ID", "JSON", "API", "NTSC", "DF", "NDF"],[]]
 
 # This rule proposes simplifications of variable declarations.
 [rule.var-declaration]
