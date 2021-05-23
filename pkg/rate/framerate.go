@@ -2,7 +2,7 @@ package rate
 
 import (
 	"fmt"
-	"math"
+	"github.com/opencinemac/vtc-go/pkg/internal"
 	"math/big"
 	"strconv"
 )
@@ -94,19 +94,20 @@ func (rate Framerate) Timebase() *big.Rat {
 
 	// big.Rat does not offer a rounding method, so we need to convert it to a float,
 	// round it, convert it to an int, then feed it to a new big.Rat.
-	return roundRat(rate.playback)
+	return internal.RoundRat(rate.Playback())
 }
 
 // FromRat creates a Framerate from a *big.Rat value.
 //
-// If ntsc != NTSCNone, value will be coerced to the nearest valid NTSC framerate by rounding to the nearest whole
-// number, and putting over a denominator of 1001.
+// If ntsc != NTSCNone, value will be coerced to the nearest valid NTSC framerate by
+// rounding to the nearest whole number, and putting over a denominator of 1001.
 //
-// Negative values are currently disallowed and will return an error.
+// IsNegative values are currently disallowed and will return an error.
 //
-// If ntsc == NTSCDrop and the value is not cleanly divisible by 30000/1001 after the normal NTSC coercion, an
-// error will be returned. Drop-frame values must be a clean multiple of a 29.97 NTSC framerate. For more
-// information on why this is, see: https://www.davidheidelberger.com/2010/06/10/drop-frame-timecode/
+// If ntsc == NTSCDrop and the value is not cleanly divisible by 30000/1001 after the
+// normal NTSC coercion, an error will be returned. Drop-frame values must be a clean
+// multiple of a 29.97 NTSC framerate. For more information on why this is, see:
+// https://www.davidheidelberger.com/2010/06/10/drop-frame-timecode/
 func FromRat(value *big.Rat, ntsc NTSC) (Framerate, error) {
 	// Return an error if this is not a valid NTSC value.
 	if err := ntsc.Validate(); err != nil {
@@ -120,7 +121,7 @@ func FromRat(value *big.Rat, ntsc NTSC) (Framerate, error) {
 
 	// If this is an NTSC value, but the denominator is not 1001, then return an error.
 	if ntsc.IsNTSC() && value.Denom().Int64() != 1001 {
-		timebase := roundRat(value)
+		timebase := internal.RoundRat(value)
 		value = new(big.Rat).SetFrac64(timebase.Num().Int64()*1000, 1001)
 	} else {
 		// We want to make a copy so this rate does not get swapped out from under us by the caller by mistake.
@@ -207,15 +208,6 @@ var dropFrameDivisor = big.NewRat(1001, 30000)
 
 // zeroRat will be used to check whether an incoming framerate value is negative.
 var zeroRat = big.NewRat(0, 1)
-
-// roundRat rounds a rational value to it's nearest integer value.
-func roundRat(value *big.Rat) *big.Rat {
-	//
-	float, _ := value.Float64()
-	rounded := int64(math.Round(float))
-
-	return new(big.Rat).SetInt64(rounded)
-}
 
 // mustNew panics if a new Framerate could not be created. Used for creating our framerate constants.
 func mustNew(timebase int64, ntsc NTSC) Framerate {

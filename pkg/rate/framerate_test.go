@@ -118,7 +118,7 @@ func TestFromRat(t *testing.T) {
 		},
 		// ERRORS
 		{
-			Name:  "Error Negative",
+			Name:  "Error IsNegative",
 			Input: []*big.Rat{big.NewRat(-24000, 1001)},
 			Expected: ExpectedFramerate{
 				Ntsc: rate.NTSCNonDrop,
@@ -228,7 +228,7 @@ func TestFromInt(t *testing.T) {
 		},
 		// ERRORS
 		{
-			Name:  "Error Negative",
+			Name:  "Error IsNegative",
 			Input: -24,
 			Expected: ExpectedFramerate{
 				Ntsc: rate.NTSCNonDrop,
@@ -315,7 +315,7 @@ func TestFromFloat(t *testing.T) {
 		},
 		// ERRORS
 		{
-			Name:  "Error Negative",
+			Name:  "Error IsNegative",
 			Input: []float64{-23.98},
 			Expected: ExpectedFramerate{
 				Ntsc: rate.NTSCNonDrop,
@@ -479,7 +479,7 @@ func TestFromString(t *testing.T) {
 		},
 		// ERRORS
 		{
-			Name: "Error Negative",
+			Name: "Error IsNegative",
 			Input: []string{
 				"-24/1",
 				"-1/24",
