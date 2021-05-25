@@ -16,8 +16,8 @@ var (
 	// framerates must be a clean multiple of 29.97 NTSC, see:
 	// https://www.davidheidelberger.com/2010/06/10/drop-frame-timecode/
 	ErrBadDropFrameRate = fmt.Errorf(
-	"%w: drop-frame Framerate values must have a playback cleanly divisible by "+
-		"30000/1001",
+		"%w: drop-frame Framerate values must have a playback cleanly divisible by "+
+			"30000/1001",
 		ErrParseFramerate,
 	)
 
