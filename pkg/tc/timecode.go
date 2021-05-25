@@ -67,7 +67,12 @@ func (tc Timecode) Seconds() *big.Rat {
 func (tc Timecode) Sections() TimecodeSections {
 	timebase := tc.Rate().Timebase()
 
-	frames := big.NewRat(tc.Frames(), 1)
+	framesInt := tc.Frames()
+	if tc.rate.NTSC() == rate.NTSCDrop {
+		framesInt += dropFrameNumAdjustment(framesInt, tc.rate)
+	}
+
+	frames := big.NewRat(framesInt, 1)
 
 	isNegative := tc.IsNegative()
 	if isNegative {

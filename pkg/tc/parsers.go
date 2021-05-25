@@ -65,49 +65,30 @@ func FromTimecode(tc string, framerate rate.Framerate) (Timecode, error) {
 		return Timecode{}, ErrFormatNotRecognized
 	}
 
-	// The hours, minutes, and seconds place are only optionally present, and annoyingly with the way regex works,
-	// will shift what group they match two depending on which ones are present. We need to put them into a
-	// slice, and pop them off the end.
-	sections := make([]string, 0, 3)
-	for _, sectionIndex := range []int{timecodeRegexSection1, timecodeRegexSection2, timecodeRegexSection3} {
-		if section := match[sectionIndex]; section != "" {
-			sections = append(sections, section)
-		}
-	}
+	sections := tcSectionsFromMatch(match)
 
-	var frames int64
-	var seconds int64
-	var minutes int64
-	var hours int64
-	if len(sections) >= 1 {
-		secondsStr := sections[len(sections)-1]
-		seconds, _ = strconv.ParseInt(secondsStr, 10, 64)
-	}
-	if len(sections) >= 2 {
-		minutesStr := sections[len(sections)-2]
-		minutes, _ = strconv.ParseInt(minutesStr, 10, 64)
-	}
-	if len(sections) >= 3 {
-		hoursStr := sections[len(sections)-3]
-		hours, _ = strconv.ParseInt(hoursStr, 10, 64)
-	}
-
-	framesStr := match[timecodeRegexFrames]
-	if framesStr != "" {
-		frames, _ = strconv.ParseInt(framesStr, 10, 64)
-	}
-
-	// Now we need to get the seconds as a rational value so we can multiply it by our timebase.
-	seconds = minutes*secondsPerMinute + hours*secondsPerHour + seconds
+	// Now we need to get the seconds as a rational value so we can multiply it by our
+	// timebase.
+	seconds := sections.Minutes*secondsPerMinute + sections.Hours*secondsPerHour + sections.Seconds
 	secondsRat := big.NewRat(seconds, 1)
 
-	// We are going to calculate our frames as a rational. We multiply our seconds by our timebase then add the
-	// frames as a rational value to it.
-	framesRat := big.NewRat(frames, 1)
+	// We are going to calculate our frames as a rational. We multiply our seconds by
+	// our timebase then add the frames as a rational value to it.
+	framesRat := big.NewRat(sections.Frames, 1)
 	framesRat = secondsRat.Mul(secondsRat, framerate.Timebase()).Add(secondsRat, framesRat)
 
 	// Then round the result and extract the numerator to get the actual frame count.
-	frames = internal.RoundRat(framesRat).Num().Int64()
+	frames := internal.RoundRat(framesRat).Num().Int64()
+	if framerate.NTSC() == rate.NTSCDrop {
+		adjustment, err := dropFrameParseAdjustment(
+			sections,
+			framerate,
+		)
+		if err != nil {
+			return Timecode{}, err
+		}
+		frames += adjustment
+	}
 
 	// If this was a negative value, we need to make the frames negative.
 	isNegative := match[timecodeRegexNegative] != ""
@@ -117,6 +98,40 @@ func FromTimecode(tc string, framerate rate.Framerate) (Timecode, error) {
 
 	// Now we can use our FromFrames conversion.
 	return FromFrames(frames, framerate), nil
+}
+
+func tcSectionsFromMatch(match []string) TimecodeSections {
+	// The hours, minutes, and seconds place are only optionally present, and annoyingly with the way regex works,
+	// will shift what group they match two depending on which ones are present. We need to put them into a
+	// slice, and pop them off the end.
+	sectionsMatched := make([]string, 0, 3)
+	for _, sectionIndex := range []int{timecodeRegexSection1, timecodeRegexSection2, timecodeRegexSection3} {
+		if section := match[sectionIndex]; section != "" {
+			sectionsMatched = append(sectionsMatched, section)
+		}
+	}
+
+	sections := TimecodeSections{}
+
+	if len(sectionsMatched) >= 1 {
+		secondsStr := sectionsMatched[len(sectionsMatched)-1]
+		sections.Seconds, _ = strconv.ParseInt(secondsStr, 10, 64)
+	}
+	if len(sectionsMatched) >= 2 {
+		minutesStr := sectionsMatched[len(sectionsMatched)-2]
+		sections.Minutes, _ = strconv.ParseInt(minutesStr, 10, 64)
+	}
+	if len(sectionsMatched) >= 3 {
+		hoursStr := sectionsMatched[len(sectionsMatched)-3]
+		sections.Hours, _ = strconv.ParseInt(hoursStr, 10, 64)
+	}
+
+	framesStr := match[timecodeRegexFrames]
+	if framesStr != "" {
+		sections.Frames, _ = strconv.ParseInt(framesStr, 10, 64)
+	}
+
+	return sections
 }
 
 // runtimeRegex is the regex we are going to use to parse runtimes.

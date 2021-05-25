@@ -23,6 +23,7 @@ type ParseCase struct {
 
 func TestParseTimecode(t *testing.T) {
 	cases := []ParseCase{
+		// 23.98 NTSC
 		{
 			Name:          "01:00:00:00 23.98 NTSC",
 			Rate:          rate.F23_98,
@@ -42,6 +43,17 @@ func TestParseTimecode(t *testing.T) {
 			Runtime:       "00:40:02.4",
 			PremiereTicks: 610248038400000,
 			FeetAndFrames: "3600+00",
+		},
+		// 29.97 Drop-frame
+		{
+			Name:          "01:00:00;00 29.97 Drop-Frame",
+			Rate:          rate.F29_97Df,
+			Seconds:       big.NewRat(8999991, 2500),
+			Frames:        107892,
+			Timecode:      "01:00:00;00",
+			Runtime:       "00:59:59.9964",
+			PremiereTicks: 914456685542400,
+			FeetAndFrames: "6743+04",
 		},
 	}
 
