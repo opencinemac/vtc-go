@@ -18,7 +18,6 @@ type ParseCase struct {
 	Timecode      string
 	Runtime       string
 	PremiereTicks int64
-	ErrExpected   error
 	FeetAndFrames string
 }
 
@@ -54,7 +53,6 @@ func TestParseTimecode(t *testing.T) {
 			Timecode:      "01:00:00:00",
 			Runtime:       "01:00:00.0",
 			PremiereTicks: 914457600000000,
-			ErrExpected:   nil,
 			FeetAndFrames: "5400+00",
 		},
 		{
@@ -65,7 +63,6 @@ func TestParseTimecode(t *testing.T) {
 			Timecode:      "00:40:00:00",
 			Runtime:       "00:40:00.0",
 			PremiereTicks: 609638400000000,
-			ErrExpected:   nil,
 			FeetAndFrames: "3600+00",
 		},
 		// 29.97 Drop-frame
@@ -138,7 +135,6 @@ func TestParseTimecode(t *testing.T) {
 			Timecode:      "00:00:00;00",
 			Runtime:       "00:00:00.0",
 			PremiereTicks: 0,
-			ErrExpected:   nil,
 			FeetAndFrames: "0+00",
 		},
 		{
@@ -149,7 +145,6 @@ func TestParseTimecode(t *testing.T) {
 			Timecode:      "00:00:01;01",
 			Runtime:       "00:00:01.017683333",
 			PremiereTicks: 258507849600,
-			ErrExpected:   nil,
 			FeetAndFrames: "3+13",
 		},
 		{
@@ -160,7 +155,6 @@ func TestParseTimecode(t *testing.T) {
 			Timecode:      "00:00:01;03",
 			Runtime:       "00:00:01.05105",
 			PremiereTicks: 266983516800,
-			ErrExpected:   nil,
 			FeetAndFrames: "3+15",
 		},
 		{
@@ -171,7 +165,6 @@ func TestParseTimecode(t *testing.T) {
 			Timecode:      "00:01:00;04",
 			Runtime:       "00:01:00.06",
 			PremiereTicks: 15256200960000,
-			ErrExpected:   nil,
 			FeetAndFrames: "225+00",
 		},
 		// 239.76 NDF CASES ---------------------
@@ -196,7 +189,6 @@ func TestParseTimecode(t *testing.T) {
 			Timecode:      "123:17:34:217",
 			Runtime:       "123:24:58.759070833",
 			PremiereTicks: 112858993584136800,
-			ErrExpected:   nil,
 			FeetAndFrames: "6657823+09",
 		},
 	}
@@ -207,8 +199,8 @@ func TestParseTimecode(t *testing.T) {
 				runParseCase(t, thisCase)
 			})
 
-			// Don't need to test negative on 0 values or errors.
-			if thisCase.Frames == 0 || thisCase.ErrExpected != nil {
+			// Don't need to test negative on 0 values.
+			if thisCase.Frames == 0 {
 				return
 			}
 
@@ -264,12 +256,6 @@ func runParseCase(t *testing.T, thisCase ParseCase) {
 func checkParse(t *testing.T, thisCase ParseCase, parsed tc.Timecode, err error) {
 	assert := assert.New(t)
 
-	if thisCase.ErrExpected != nil {
-		assert.ErrorIs(err, thisCase.ErrExpected, "error is expected sentinel")
-		assert.ErrorIs(err, tc.ErrParseTimecode, "error is expected sentinel")
-		return
-	}
-
 	if !assert.NoError(err, "parse error") {
 		t.FailNow()
 	}
@@ -286,4 +272,52 @@ func checkParse(t *testing.T, thisCase ParseCase, parsed tc.Timecode, err error)
 	assert.Equal(thisCase.Runtime, parsed.Runtime(9), "runtime")
 	assert.Equal(thisCase.PremiereTicks, parsed.PremiereTicks(), "Premiere Ticks")
 	assert.Equal(thisCase.FeetAndFrames, parsed.FeetAndFrames(), "Feet And Frames")
+}
+
+func TestFromTimecode_ErrFormat(t *testing.T) {
+	assert := assert.New(t)
+
+	_, err := tc.FromTimecode("not a timecode", rate.F24)
+
+	if !assert.Error(err, "error occurred") {
+		t.FailNow()
+	}
+	assert.ErrorIs(err, tc.ErrParseTimecode, "is parse err")
+	assert.ErrorIs(err, tc.ErrFormatNotRecognized, "is correct sub err")
+}
+
+func TestFromTimecode_BadDropFrames(t *testing.T) {
+	assert := assert.New(t)
+
+	_, err := tc.FromTimecode("00:01:00:01", rate.F29_97Df)
+
+	if !assert.Error(err, "error occurred") {
+		t.FailNow()
+	}
+	assert.ErrorIs(err, tc.ErrParseTimecode, "is parse err")
+	assert.ErrorIs(err, tc.ErrBadDropFrameValue, "is correct sub err")
+}
+
+func TestFromRuntime_ErrFormat(t *testing.T) {
+	assert := assert.New(t)
+
+	_, err := tc.FromRuntime("not a timecode", rate.F24)
+
+	if !assert.Error(err, "error occurred") {
+		t.FailNow()
+	}
+	assert.ErrorIs(err, tc.ErrParseTimecode, "is parse err")
+	assert.ErrorIs(err, tc.ErrFormatNotRecognized, "is correct sub err")
+}
+
+func TestFromFeetAndFrames_ErrFormat(t *testing.T) {
+	assert := assert.New(t)
+
+	_, err := tc.FromFeetAndFrames("not a timecode", rate.F24)
+
+	if !assert.Error(err, "error occurred") {
+		t.FailNow()
+	}
+	assert.ErrorIs(err, tc.ErrParseTimecode, "is parse err")
+	assert.ErrorIs(err, tc.ErrFormatNotRecognized, "is correct sub err")
 }

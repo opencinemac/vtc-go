@@ -13,6 +13,6 @@ var ErrFormatNotRecognized = fmt.Errorf("%w: string format not recognized", ErrP
 
 // ErrBadDropFrameValue is returned when a timecode to be parsed includes a disallowed
 // frame value. Ex: ('00:01:00:01', since this frame should be dropped.)
-var ErrBadDropFrameValue = errors.New(
-	"%w: frames value not allowed in Drop-Frame timecode",
+var ErrBadDropFrameValue = fmt.Errorf(
+	"%w: frames value not allowed in Drop-Frame timecode", ErrParseTimecode,
 )
