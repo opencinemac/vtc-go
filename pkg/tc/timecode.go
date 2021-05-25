@@ -68,16 +68,15 @@ func (tc Timecode) Sections() TimecodeSections {
 	timebase := tc.Rate().Timebase()
 
 	framesInt := tc.Frames()
+	isNegative := tc.IsNegative()
+	if isNegative {
+		framesInt = -framesInt
+	}
 	if tc.rate.NTSC() == rate.NTSCDrop {
 		framesInt += dropFrameNumAdjustment(framesInt, tc.rate)
 	}
 
 	frames := big.NewRat(framesInt, 1)
-
-	isNegative := tc.IsNegative()
-	if isNegative {
-		frames = frames.Neg(frames)
-	}
 
 	framesPerMinute := new(big.Rat).Mul(secondsPerMinuteRat, timebase)
 	framesPerHour := new(big.Rat).Mul(secondsPerHourRat, timebase)
@@ -212,7 +211,8 @@ Where you see it
 */
 func (tc Timecode) Runtime(precision int) string {
 	seconds := tc.Seconds()
-	// If this is a negative value, make it positive.
+	// If this is a negative value, make it positive for the purposes of parsing the
+	// value.
 	isNegative := tc.IsNegative()
 	if isNegative {
 		seconds.Neg(seconds)
@@ -225,7 +225,7 @@ func (tc Timecode) Runtime(precision int) string {
 
 	var secondsStr string
 	if seconds.IsInt() {
-		secondsStr = fmt.Sprintf("%02d", seconds.Num().Int64())
+		secondsStr = fmt.Sprintf("%02d.0", seconds.Num().Int64())
 	} else {
 		secondsStr = seconds.FloatString(precision)
 		// Trim any trailing zeros.
@@ -277,7 +277,12 @@ func (tc Timecode) FeetAndFrames() string {
 	feet := frames / framesPerFoot
 	frames = frames % framesPerFoot
 
-	return fmt.Sprintf("%v+%02d", feet, frames)
+	sign := ""
+	if isNegative {
+		sign = "-"
+	}
+
+	return fmt.Sprintf("%v%v+%02d", sign, feet, frames)
 }
 
 /*

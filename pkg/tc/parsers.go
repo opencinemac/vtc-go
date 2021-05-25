@@ -8,17 +8,23 @@ import (
 	"strconv"
 )
 
-// FromSecondsRat creates a new Timecode based on a rational representation of the seconds count.
+// FromSecondsRat creates a new Timecode based on a rational representation of the
+// seconds count.
 //
 // seconds will be rounded to the nearest whole-frame based on rate.
 func FromSecondsRat(seconds *big.Rat, framerate rate.Framerate) Timecode {
 	playback := framerate.Playback()
 	playbackDivisor := new(big.Rat).Inv(playback)
+	// If our seconds are not cleanly divisible by the length of a single frame, we need
+	// to round to the nearest frame.
 	if !new(big.Rat).Mul(seconds, playbackDivisor).IsInt() {
-		frames := new(big.Rat).Mul(seconds, playback)
-		seconds = new(big.Rat).Mul(frames, playbackDivisor)
+		// We can use playback as the receiver here since we won't  need it again.
+		frames := internal.RoundRat(playback.Mul(seconds, playback))
+		// Frames is not needed here, so we can use it as the receiver.
+		seconds = frames.Mul(frames, playbackDivisor)
 	} else {
-		// We need to make a copy of the seconds value so it doesn't get changed out from under us by the caller.
+		// We need to make a copy of the seconds value so it doesn't get changed out
+		// from under us by the caller.
 		seconds = new(big.Rat).Set(seconds)
 	}
 
@@ -181,12 +187,12 @@ func FromRuntime(runtime string, framerate rate.Framerate) (Timecode, error) {
 	// This value will always be here if the regex matches, we don't need to check.
 	secondsStr := match[runtimeRegexSeconds]
 	seconds, _ := new(big.Rat).SetString(secondsStr)
-
 	seconds.Add(seconds, big.NewRat(secondsInt, 1))
+
 	// If this was a negative value, we need to make the frames negative.
 	isNegative := match[runtimeRegexNegative] != ""
 	if isNegative {
-		seconds = seconds.Inv(seconds)
+		seconds = seconds.Neg(seconds)
 	}
 
 	return FromSecondsRat(seconds, framerate), nil
