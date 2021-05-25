@@ -274,6 +274,163 @@ func checkParse(t *testing.T, thisCase ParseCase, parsed tc.Timecode, err error)
 	assert.Equal(thisCase.FeetAndFrames, parsed.FeetAndFrames(), "Feet And Frames")
 }
 
+// TesTcOverflowParsing tests that tc strings with overflowed values are parsed
+// correctly.
+func TestTcOverflowParsing(t *testing.T) {
+	cases := []struct{
+		In string
+		Expected string
+	}{
+		{
+			In:       "00:59:59:24",
+			Expected: "01:00:00:00",
+		},
+		{
+			In:       "00:59:59:28",
+			Expected: "01:00:00:04",
+		},
+		{
+			In:       "00:00:62:04",
+			Expected: "00:01:02:04",
+		},
+		{
+			In:       "00:62:01:04",
+			Expected: "01:02:01:04",
+		},
+		{
+			In:       "00:62:62:04",
+			Expected: "01:03:02:04",
+		},
+		{
+			In:       "123:00:00:00",
+			Expected: "123:00:00:00",
+		},
+		{
+			In:       "01:00:00:48",
+			Expected: "01:00:02:00",
+		},
+		{
+			In:       "01:00:120:00",
+			Expected: "01:02:00:00",
+		},
+		{
+			In:       "01:120:00:00",
+			Expected: "03:00:00:00",
+		},
+	}
+
+	for _, testCase := range cases {
+		t.Run(testCase.In, func(t *testing.T) {
+			assert := assert.New(t)
+
+			timecode, err := tc.FromTimecode(testCase.In, rate.F24)
+			if !assert.NoError(err, "parse In") {
+				t.FailNow()
+			}
+
+			assert.Equal(testCase.Expected, timecode.Timecode(), "fixed tc")
+		})
+	}
+}
+
+func TestParsePartialTc(t *testing.T) {
+	cases := []struct{
+		In       string
+		Expected string
+	}{
+		{
+			In:       "1:02:03:04",
+			Expected: "01:02:03:04",
+		},
+		{
+			In:       "02:03:04",
+			Expected: "00:02:03:04",
+		},
+		{
+			In:       "2:03:04",
+			Expected: "00:02:03:04",
+		},
+		{
+			In:       "03:04",
+			Expected: "00:00:03:04",
+		},
+		{
+			In:       "3:04",
+			Expected: "00:00:03:04",
+		},
+		{
+			In:       "04",
+			Expected: "00:00:00:04",
+		},
+		{
+			In:       "4",
+			Expected: "00:00:00:04",
+		},
+	}
+
+	for _, testCase := range cases {
+		t.Run(testCase.In, func(t *testing.T) {
+			assert := assert.New(t)
+
+			timecode, err := tc.FromTimecode(testCase.In, rate.F24)
+			if !assert.NoError(err, "parse In") {
+				t.FailNow()
+			}
+
+			assert.Equal(testCase.Expected, timecode.Timecode(), "fixed tc")
+		})
+	}
+}
+
+func TestParseRuntimePartial(t *testing.T) {
+	cases := []struct{
+		In       string
+		Expected string
+	}{
+		{
+			In:       "1:02:03.5",
+			Expected: "01:02:03.5",
+		},
+		{
+			In:       "02:03.5",
+			Expected: "00:02:03.5",
+		},
+		{
+			In:       "2:03.5",
+			Expected: "00:02:03.5",
+		},
+		{
+			In:       "03.5",
+			Expected: "00:00:03.5",
+		},
+		{
+			In:       "3.5",
+			Expected: "00:00:03.5",
+		},
+		{
+			In:       "0.5",
+			Expected: "00:00:00.5",
+		},
+		{
+			In:       "1:2:3.5",
+			Expected: "01:02:03.5",
+		},
+	}
+
+	for _, testCase := range cases {
+		t.Run(testCase.In, func(t *testing.T) {
+			assert := assert.New(t)
+
+			timecode, err := tc.FromRuntime(testCase.In, rate.F24)
+			if !assert.NoError(err, "parse In") {
+				t.FailNow()
+			}
+
+			assert.Equal(testCase.Expected, timecode.Runtime(9), "fixed runtime")
+		})
+	}
+}
+
 func TestFromTimecode_ErrFormat(t *testing.T) {
 	assert := assert.New(t)
 
