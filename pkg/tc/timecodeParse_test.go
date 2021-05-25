@@ -277,8 +277,8 @@ func checkParse(t *testing.T, thisCase ParseCase, parsed tc.Timecode, err error)
 // TesTcOverflowParsing tests that tc strings with overflowed values are parsed
 // correctly.
 func TestTcOverflowParsing(t *testing.T) {
-	cases := []struct{
-		In string
+	cases := []struct {
+		In       string
 		Expected string
 	}{
 		{
@@ -334,7 +334,7 @@ func TestTcOverflowParsing(t *testing.T) {
 }
 
 func TestParsePartialTc(t *testing.T) {
-	cases := []struct{
+	cases := []struct {
 		In       string
 		Expected string
 	}{
@@ -383,7 +383,7 @@ func TestParsePartialTc(t *testing.T) {
 }
 
 func TestParseRuntimePartial(t *testing.T) {
-	cases := []struct{
+	cases := []struct {
 		In       string
 		Expected string
 	}{
