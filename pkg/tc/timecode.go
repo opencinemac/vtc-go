@@ -32,6 +32,11 @@ type Timecode struct {
 	rate rate.Framerate
 }
 
+// String implements fmt.Stringer.
+func (tc Timecode) String() string {
+	return fmt.Sprintf("%v @ %v", tc.Timecode(), tc.rate)
+}
+
 // Rate returns the rate.Framerate of the timecode.
 func (tc Timecode) Rate() rate.Framerate {
 	return tc.rate

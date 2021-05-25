@@ -7,7 +7,35 @@ import (
 	"math/big"
 )
 
-// Add adds two timecodes together.
+// Cmp is returned by Timecode.Cmp and indicates whether the value is less than, equal
+// to, or greater than another value.
+type Cmp int
+
+const (
+	// CmpLt is returned when a Timecode is less than another value.
+	CmpLt Cmp = iota - 1
+	// CmpEq is returned when a Timecode is equal to another value.
+	CmpEq
+	// CmpGt is returned when a Timecode is greater than another value.
+	CmpGt
+)
+
+// Cmp compares tc and other and returns:
+//
+//   -1 if tc <  other
+//    0 if tc == other
+//   +1 if tc >  other
+//
+// Comparisons are done by comparing the real-world seconds value, so
+// 01:00:00:00 @ 24 fps will be less than 01:00:00:00 @ 23.98 NTSC
+func (tc Timecode) Cmp(other Timecode) Cmp {
+	return Cmp(tc.seconds.Cmp(other.seconds))
+}
+
+// Add adds two timecodes together using their real-world seconds values, rounded to
+// the nearest frame
+//
+// The returned timecode will contain the framerate of the calling timecode.
 func (tc Timecode) Add(other Timecode) Timecode {
 	seconds := tc.Seconds()
 	seconds = seconds.Add(seconds, other.seconds)
@@ -62,10 +90,7 @@ func (tc Timecode) Mod(divisor *big.Rat) Timecode {
 // DivMod divides a timecode by a scalar and returns the dividend and remainder.
 // DivMod returns a result as if floor division had been done to the frame count.
 func (tc Timecode) DivMod(divisor *big.Rat) (dividend Timecode, remainder Timecode) {
-	divisor = new(big.Rat).Inv(divisor)
-
 	frames := big.NewRat(tc.Frames(), 1)
-	frames = frames.Mul(frames, divisor)
 
 	dividendRat, remainderRat := internal.DivModRat(frames, divisor)
 	remainderRat = internal.RoundRat(remainderRat)
