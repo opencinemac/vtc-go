@@ -56,6 +56,8 @@ type TimecodeData struct {
 // EventData holds the timecode data of a single sequence event using data from a
 // combined EDL and FCP7XML
 type EventData struct {
+	// DurationFrames is the length of thee event in frames.
+	DurationFrames int64 `json:"duration_frames"`
 	// RecordIn is the sequence timecode info for the start of this event.
 	RecordIn TimecodeData `json:"record_in"`
 	// RecordOut is the sequence timecode info for the end of this event.
@@ -72,7 +74,7 @@ type SequenceData struct {
 	// StartTime is the timecode info for the first frame of this sequence.
 	StartTime TimecodeData `json:"start_time"`
 	// TotalDurationFrames is the number of frames this sequence contains.
-	TotalDurationFrames int `json:"total_duration_frames"`
+	TotalDurationFrames int64 `json:"total_duration_frames"`
 	// Events is a slice of timecode information for all the edit events for this
 	// sequence.
 	Events []*EventData

@@ -33,9 +33,9 @@ func TestParseTableTests(t *testing.T) {
 	}
 }
 
-func testParseTimecodeInfo(t *testing.T, data testdata.TimecodeData) {
+// getTimecodeRate gets the Framerate from a testdata.TimecodeData value.
+func getTimecodeRate(t *testing.T, data testdata.TimecodeData) rate.Framerate {
 	assert := assert.New(t)
-
 	ntsc := rate.NTSCNone
 	if data.Ntsc {
 		ntsc = rate.NTSCNonDrop
@@ -48,6 +48,14 @@ func testParseTimecodeInfo(t *testing.T, data testdata.TimecodeData) {
 	if !assert.NoError(err, "parse timebase to framerate") {
 		t.FailNow()
 	}
+
+	return framerate
+}
+
+func testParseTimecodeInfo(t *testing.T, data testdata.TimecodeData) {
+	assert := assert.New(t)
+
+	framerate := getTimecodeRate(t, data)
 
 	t.Run("From Timecode", func(t *testing.T) {
 		parsed, err := tc.FromTimecode(data.Timecode, framerate)
@@ -103,4 +111,121 @@ func checkTimecodeParse(t *testing.T, parsed tc.Timecode, data testdata.Timecode
 	assert.Equal(data.Runtime, parsed.Runtime(9), "runtime")
 	assert.Equal(data.PProTicks, parsed.PremiereTicks(), "ppro ticks")
 	assert.Equal(data.FeetAndFrames, parsed.FeetAndFrames(), "feet and frames")
+}
+
+// TestTallySequenceTimecode is going to keep a running tally of the current record time
+// and frame count. For each event, then length of the record and source time will be
+// checked to see if it is correct against the raw value from the FCP7XML.
+//
+// We will also check that by adding the length of the event to a running timecode
+// counter, we get the current record out time of each event.
+//
+// This test ensures that our addition and subtraction works as intended and does not
+// drift over time.
+func TestTallySequenceTimecode(t *testing.T) {
+	seq := testdata.ManyBasicEditsData
+	seqRate := getTimecodeRate(t, seq.StartTime)
+
+	// Current total will start at 0.
+	currentTotal := tc.FromFrames(0, seqRate)
+
+	// currentTc will start at the sequence start time. When we add the length of each
+	// event, we should get the record out of the event as a result.
+	currentTc := tc.FromFrames(seq.StartTime.Frame, seqRate)
+
+	for i, event := range seq.Events {
+		failNow := false
+
+		t.Run(fmt.Sprintf("Event %03d", i), func(t *testing.T) {
+			// We're going to add the source length to the running tallies. We use the
+			// source so it's more removed from the record timecode we are hoping to
+			// match.
+			var srcLength tc.Timecode
+
+			// Check that we can calculate the length of the source timecode correctly.
+			t.Run("Source Length", func(t *testing.T) {
+				t.Cleanup(func() {
+					if t.Failed() {
+						failNow = true
+					}
+				})
+
+				sourceIn := getTimecodeFromData(t, event.SourceIn)
+				sourceOut := getTimecodeFromData(t, event.SourceOut)
+
+				srcLength = sourceOut.Sub(sourceIn)
+
+				assert.Equal(t, event.DurationFrames, srcLength.Frames(), "record length expected")
+			})
+
+			var recordOut tc.Timecode
+
+			// Check that we can calculate the length of the record timecode correctly.
+			t.Run("Record Length", func(t *testing.T) {
+				t.Cleanup(func() {
+					if t.Failed() {
+						failNow = true
+					}
+				})
+
+				recordIn := getTimecodeFromData(t, event.RecordIn)
+				recordOut = getTimecodeFromData(t, event.RecordOut)
+
+				length := recordOut.Sub(recordIn)
+
+				assert.Equal(t, event.DurationFrames, length.Frames(), "record length expected")
+			})
+
+			// Check that our running tallies are correct.
+			t.Run("Running Record Time", func(t *testing.T) {
+				t.Cleanup(func() {
+					if t.Failed() {
+						failNow = true
+					}
+				})
+
+				currentTotal = currentTotal.Add(srcLength)
+				currentTc = currentTc.Add(srcLength)
+
+				assert.Equal(
+					t,
+					tc.CmpEq,
+					currentTc.Cmp(recordOut),
+					"current running tc (%v) is record out (%v)",
+					currentTc,
+					recordOut,
+				)
+			})
+
+		})
+
+		if failNow {
+			t.FailNow()
+		}
+	}
+
+	// Check that our running frame total is correct.
+	t.Run("Frame Total", func(t *testing.T) {
+		assert.Equal(
+			t,
+			seq.TotalDurationFrames,
+			currentTotal.Frames(),
+			"frame total matches",
+		)
+	})
+}
+
+// getTimecodeFromData extracts a tc.Timecode from testdata.TimecodeData using the
+// timecode string and framerate.
+func getTimecodeFromData(t *testing.T, data testdata.TimecodeData) tc.Timecode {
+	t.Helper()
+
+	framerate := getTimecodeRate(t, data)
+
+	timecode, err := tc.FromTimecode(data.Timecode, framerate)
+	if !assert.NoError(t, err, "parse timecode string") {
+		t.FailNow()
+	}
+
+	return timecode
 }
