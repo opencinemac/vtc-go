@@ -1,0 +1,4 @@
+packaging==20.9
+pyparsing==2.4.7
+toml==0.10.2
+-e git+https://github.com/opencinemac/vtc-go@1dce4ca769ff1c775a5cf03da9e46d746374a6cc#egg=vtc
