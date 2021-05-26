@@ -11,6 +11,20 @@ import (
 // to, or greater than another value.
 type Cmp int
 
+// String implements fmt.Stringer.
+func (cmp Cmp) String() string {
+	switch cmp {
+	case CmpLt:
+		return "LT"
+	case CmpEq:
+		return "EQ"
+	case CmpGt:
+		return "GT"
+	default:
+		return "[INVALID]"
+	}
+}
+
 const (
 	// CmpLt is returned when a Timecode is less than another value.
 	CmpLt Cmp = iota - 1
@@ -46,7 +60,9 @@ func (tc Timecode) Add(other Timecode) Timecode {
 	}
 }
 
-// Sub subtracts a timecode from the caller.
+// Sub subtracts a timecode from the caller using their real-world seconds values.
+//
+// The returned timecode will contain the framerate of the calling timecode.
 func (tc Timecode) Sub(other Timecode) Timecode {
 	seconds := tc.Seconds()
 	seconds = seconds.Sub(seconds, other.seconds)

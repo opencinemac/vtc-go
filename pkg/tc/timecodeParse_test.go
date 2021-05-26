@@ -220,7 +220,7 @@ func TestParseTimecode(t *testing.T) {
 
 func runParseCase(t *testing.T, thisCase ParseCase) {
 	t.Run("From Seconds", func(t *testing.T) {
-		parsed := tc.FromSecondsRat(thisCase.Seconds, thisCase.Rate)
+		parsed := tc.FromSeconds(thisCase.Seconds, thisCase.Rate)
 		checkParse(t, thisCase, parsed, nil)
 	})
 

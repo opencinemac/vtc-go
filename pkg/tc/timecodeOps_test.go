@@ -64,17 +64,7 @@ func TestTimecode_Cmp(t *testing.T) {
 	}
 
 	for _, thisCase := range cases {
-		sign := ""
-		switch thisCase.Expected {
-		case tc.CmpEq:
-			sign = "="
-		case tc.CmpLt:
-			sign = "<"
-		case tc.CmpGt:
-			sign = ">"
-		}
-
-		name := fmt.Sprintf("%v %v %v", thisCase.Tc1, sign, thisCase.Tc2)
+		name := fmt.Sprintf("%v %v %v", thisCase.Tc1, thisCase.Expected, thisCase.Tc2)
 		t.Run(name, func(t *testing.T) {
 			t.Run("Regular", func(t *testing.T) {
 				assert.Equal(t, thisCase.Expected, thisCase.Tc1.Cmp(thisCase.Tc2))
@@ -371,4 +361,8 @@ func TestTimecode_Rebase(t *testing.T) {
 			)
 		})
 	}
+}
+
+func TestCmp_StringInvalid(t *testing.T) {
+	assert.Equal(t, "[INVALID]", tc.Cmp(100).String())
 }

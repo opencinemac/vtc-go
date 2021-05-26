@@ -1,35 +1,4 @@
-<h1 align="center">occlib-go</h1>
-<p align="center">
-    <img height=150 class="heightSet" align="center" src="https://raw.githubusercontent.com/opencinemac/vtc-py/master/zdocs/source/_static/logo1.svg"/>
-</p>
-<p align="center">A SMPTE Timecode Library for Go</p>
-<p align="center">
-    <a href="https://dev.azure.com/peake100/Open%20Cinema%20Collective/_build?definitionId=17"><img src="https://dev.azure.com/peake100/Open%20Cinema%20Collective/_apis/build/status/vtc-go?branchName=dev" alt="click to see build pipeline"></a>
-    <a href="https://dev.azure.com/peake100/Open%20Cinema%20Collective/_build?definitionId=17"><img src="https://img.shields.io/azure-devops/tests/peake100/Open%20Cinema%20Collective/17/dev?compact_message" alt="click to see build pipeline"></a>
-    <a href="https://dev.azure.com/peake100/Open%20Cinema%20Collective/_build?definitionId=17"><img src="https://img.shields.io/azure-devops/coverage/peake100/Open%20Cinema%20Collective/17/dev?compact_message" alt="click to see build pipeline"></a>
-</p>
-<p align="center">
-    <a href="https://goreportcard.com/report/github.com/opencinemac/vtc-go"><img src="https://goreportcard.com/badge/github.com/opencinemac/vtc-go" alt="click to see report card"></a>
-    <a href="https://codeclimate.com/github/opencinemac/vtc-go/maintainability"><img src="https://api.codeclimate.com/v1/badges/b3123a4503e9943dafec/maintainability" alt="click to see report"/></a>
-</p>
-<p align="center">
-    <a href="https://github.com/opencinemac/vtc-go"><img src="https://img.shields.io/github/go-mod/go-version/opencinemac/vtc-go" alt="Repo"></a>
-    <a href="https://pkg.go.dev/github.com/opencinemac/vtc-go?readme=expanded#section-documentation"><img src="https://pkg.go.dev/badge/github.com/opencinemac/vtc-go?readme=expanded#section-documentation.svg" alt="Go Reference"></a>
-</p>
-
-# Overview
-
-``vtc-go`` is inspired by years of scripting workflow solutions in a Hollywood cutting
-room. It aims to capture all the ways in which timecode is used throughout the industry 
-so  users can spend more time on their workflow logic, and less time handling the
-corner-cases of parsing and calculating timecode.
-
-## Demo
-
-Let's take a quick high-level look at what you can do with vtc-rs:
-
-```go
-package main
+package vtc_test
 
 import (
 	"fmt"
@@ -38,7 +7,7 @@ import (
 	"math/big"
 )
 
-func main() {
+func Example() {
 	// It's easy to make a new 23.98 NTSC Timecode.
 	timecode, err := tc.FromTimecode("01:00:00:00", rate.F23_98)
 	if err != nil {
@@ -198,55 +167,36 @@ func main() {
 
 	// 02:00:00:00 @ 59.94 NTSC NDF
 	fmt.Println(timecode)
+
+	// Output:
+	// 01:00:00:00 @ 23.98 NTSC NDF
+	// 01:00:00:00
+	// 86400
+	// 18018/5
+	// 01:00:03.6
+	// 915372057600000
+	// 5400+00
+	// 24000/1001
+	// 24/1
+	// NTSC NDF
+	// 00:00:03:12 @ 23.98 NTSC NDF
+	// 00:00:01:00 @ 23.98 NTSC NDF
+	// 00:00:01:12 @ 23.98 NTSC NDF
+	// 00:00:01:00 @ 23.98 NTSC NDF
+	// 00:59:56:22 @ 23.98 NTSC NDF
+	// 00:02:22:07 @ 23.98 NTSC NDF
+	// 18:23:13:02 @ 23.98 NTSC NDF
+	// 17:23:13:02 @ 23.98 NTSC NDF
+	// GT
+	// 34:46:26:04 @ 23.98 NTSC NDF
+	// 17:23:13:02 @ 23.98 NTSC NDF
+	// DIVIDEND: 11:35:28:17 @ 23.98 NTSC NDF
+	// REMAINDER: 00:00:00:01 @ 23.98 NTSC NDF
+	// -17:23:13:02 @ 23.98 NTSC NDF
+	// 17:23:13:02 @ 23.98 NTSC NDF
+	// 00:08:20;18 @ 29.97 NTSC DF
+	// NTSC DF
+	// 493200
+	// 01:00:00:00 @ 119.88 NTSC NDF
+	// 02:00:00:00 @ 59.94 NTSC NDF
 }
-```
-
-## Features
-
-- SMPTE Conventions:
-    - [X] NTSC
-    - [X] Drop-Frame
-    - [ ] Interlaced timecode
-- Timecode Representations:
-    - Timecode    | '01:00:00:00'
-    - Frames      | 86400
-    - Seconds     | 3600.0
-    - Runtime     | '01:00:00.0'
-    - Rational    | 18018/5
-    - Feet+Frames | '5400+00'
-        - [X] 35mm, 4-perf
-        - [ ] 35mm, 3-perf
-        - [ ] 35mm, 2-perf
-        - [ ] 16mm
-    - Premiere Ticks | 15240960000000
-- Operations:
-    - Comparisons (==, <, <=, >, >=)
-    - Add
-    - Subtract
-    - Scale (multiply and divide)
-    - Div/Rem
-    - Modulo
-    - Negative
-    - Absolute
-    - Rebase (recalculate frame count at new framerate)
-- Flexible Parsing:
-    - Partial timecodes      | '1:12'
-    - Partial runtimes       | '1.5'
-    - Negative string values | '-1:12', '-3+00'
-    - Poorly formatted tc    | '1:13:4'
-- Built-in consts for common framerates.
-
-## Goals
-
-- Parse and fetch all Timecode representations.
-- A clean, idiomatic API.
-- Support all operations that make sense for timecode.
-
-## Non-Goals
-
-- Real-time timecode generators.
-
-## Attributions
-
-<div>Drop-frame calculations adapted from <a href="https://www.davidheidelberger.com/2010/06/10/drop-frame-timecode/">David Heidelberger's blog.</a></div>
-<div>Logo made by <a href="" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>tc - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.13.5";</script>
+<script src="godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="http://localhost:6161/pkg/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="http://localhost:6161/pkg/">GoDoc</a></div>
+<a href="godoc.4.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form method="GET" action="http://localhost:6161/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package tc
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/opencinemac/vtc-go/pkg/tc"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="godoc.4.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="godoc.4.html#pkg-index" class="indexLink">Index</a></dd>
+			
+				<dd><a href="godoc.4.html#pkg-examples" class="examplesLink">Examples</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				<p>
+Package tc offers methods and types for parsing and constructing timecode values.
+</p>
+
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="godoc.4.html#pkg-variables">Variables</a></dd>
+			
+			
+			
+				
+				<dd><a href="godoc.4.html#Cmp">type Cmp</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Cmp.String">func (cmp Cmp) String() string</a></dd>
+				
+			
+				
+				<dd><a href="godoc.4.html#Timecode">type Timecode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#FromFeetAndFrames">func FromFeetAndFrames(faf string, framerate rate.Framerate) (Timecode, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#FromFrames">func FromFrames(frames int64, framerate rate.Framerate) Timecode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#FromPremiereTicks">func FromPremiereTicks(ticks int64, framerate rate.Framerate) Timecode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#FromRuntime">func FromRuntime(runtime string, framerate rate.Framerate) (Timecode, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#FromSeconds">func FromSeconds(seconds *big.Rat, framerate rate.Framerate) Timecode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#FromTimecode">func FromTimecode(tc string, framerate rate.Framerate) (Timecode, error)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Abs">func (tc Timecode) Abs() Timecode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Add">func (tc Timecode) Add(other Timecode) Timecode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Cmp">func (tc Timecode) Cmp(other Timecode) Cmp</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Div">func (tc Timecode) Div(divisor *big.Rat) Timecode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.DivMod">func (tc Timecode) DivMod(divisor *big.Rat) (dividend Timecode, remainder Timecode)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.FeetAndFrames">func (tc Timecode) FeetAndFrames() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Frames">func (tc Timecode) Frames() int64</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.IsNegative">func (tc Timecode) IsNegative() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Mod">func (tc Timecode) Mod(divisor *big.Rat) Timecode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Mul">func (tc Timecode) Mul(multiplier *big.Rat) Timecode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Neg">func (tc Timecode) Neg() Timecode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.PremiereTicks">func (tc Timecode) PremiereTicks() int64</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Rate">func (tc Timecode) Rate() rate.Framerate</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Rebase">func (tc Timecode) Rebase(framerate rate.Framerate) Timecode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Runtime">func (tc Timecode) Runtime(precision int) string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Seconds">func (tc Timecode) Seconds() *big.Rat</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Sections">func (tc Timecode) Sections() TimecodeSections</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.String">func (tc Timecode) String() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Sub">func (tc Timecode) Sub(other Timecode) Timecode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.4.html#Timecode.Timecode">func (tc Timecode) Timecode() string</a></dd>
+				
+			
+				
+				<dd><a href="godoc.4.html#TimecodeSections">type TimecodeSections</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+		<div id="pkg-examples">
+			<h3>Examples</h3>
+			<div class="js-expandAll expandAll collapsed">(Expand All)</div>
+			<dl>
+			
+			<dd><a class="exampleLink" href="godoc.4.html#example_FromTimecode_basic">FromTimecode (Basic)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.4.html#example_FromTimecode_overflow">FromTimecode (Overflow)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.4.html#example_FromTimecode_partial">FromTimecode (Partial)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.4.html#example_Timecode_Cmp">Timecode.Cmp</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.4.html#example_Timecode_Cmp_mixedRates">Timecode.Cmp (MixedRates)</a></dd>
+			
+			</dl>
+		</div>
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/consts.go">consts.go</a>
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/doc.go">doc.go</a>
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/dropframe.go">dropframe.go</a>
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/errors.go">errors.go</a>
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/parsers.go">parsers.go</a>
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go">timecode.go</a>
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go">timecodeOps.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				<p>
+tc comes with sentinel errors for catching various parsing errors.
+</p>
+
+				<pre>var (
+    <span class="comment">// ErrParseTimecode is the sentinel error returned when a timecode could not be</span>
+    <span class="comment">// parsed. All other parsing errors wrap this error.</span>
+    <span id="ErrParseTimecode">ErrParseTimecode</span> = <a href="http://localhost:6161/pkg/errors/">errors</a>.<a href="http://localhost:6161/pkg/errors/#New">New</a>(&#34;could not parse Timecode&#34;)
+
+    <span class="comment">// ErrFormatNotRecognized is the sentinel error returned when a timecode string&#39;s</span>
+    <span class="comment">// format is not recognized.</span>
+    <span id="ErrFormatNotRecognized">ErrFormatNotRecognized</span> = <a href="http://localhost:6161/pkg/fmt/">fmt</a>.<a href="http://localhost:6161/pkg/fmt/#Errorf">Errorf</a>(&#34;%w: string format not recognized&#34;, <a href="godoc.4.html#ErrParseTimecode">ErrParseTimecode</a>)
+
+    <span class="comment">// ErrBadDropFrameValue is returned when a timecode to be parsed includes a</span>
+    <span class="comment">// disallowed frame value. Ex: (&#39;00:01:00:01&#39;, since this frame should be dropped.)</span>
+    <span id="ErrBadDropFrameValue">ErrBadDropFrameValue</span> = <a href="http://localhost:6161/pkg/fmt/">fmt</a>.<a href="http://localhost:6161/pkg/fmt/#Errorf">Errorf</a>(
+        &#34;%w: frames value not allowed in Drop-Frame timecode&#34;, <a href="godoc.4.html#ErrParseTimecode">ErrParseTimecode</a>,
+    )
+)</pre>
+			
+		
+		
+		
+			
+			
+			<h2 id="Cmp">type <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go?s=281:293#L2">Cmp</a>
+				<a class="permalink" href="godoc.4.html#Cmp">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Cmp is returned by Timecode.Cmp and indicates whether the value is less than, equal
+to, or greater than another value.
+</p>
+
+			<pre>type Cmp <a href="http://localhost:6161/pkg/builtin/#int">int</a></pre>
+
+			
+				
+				<pre>const (
+    <span class="comment">// CmpLt is returned when a Timecode is less than another value.</span>
+    <span id="CmpLt">CmpLt</span> <a href="godoc.4.html#Cmp">Cmp</a> = <a href="http://localhost:6161/pkg/builtin/#iota">iota</a> - 1
+    <span class="comment">// CmpEq is returned when a Timecode is equal to another value.</span>
+    <span id="CmpEq">CmpEq</span>
+    <span class="comment">// CmpGt is returned when a Timecode is greater than another value.</span>
+    <span id="CmpGt">CmpGt</span>
+)</pre>
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Cmp.String">func (Cmp) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go?s=330:360#L5">String</a>
+					<a class="permalink" href="godoc.4.html#Cmp.String">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (cmp <a href="godoc.4.html#Cmp">Cmp</a>) String() <a href="http://localhost:6161/pkg/builtin/#string">string</a></pre>
+				<p>
+String implements fmt.Stringer.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Timecode">type <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go?s=678:872#L18">Timecode</a>
+				<a class="permalink" href="godoc.4.html#Timecode">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Timecode represents the frame at a particular time in a video.
+</p>
+
+			<pre>type Timecode struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="FromFeetAndFrames">func <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/parsers.go?s=6845:6923#L202">FromFeetAndFrames</a>
+					<a class="permalink" href="godoc.4.html#FromFeetAndFrames">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func FromFeetAndFrames(faf <a href="http://localhost:6161/pkg/builtin/#string">string</a>, framerate <a href="godoc.3.html">rate</a>.<a href="godoc.3.html#Framerate">Framerate</a>) (<a href="godoc.4.html#Timecode">Timecode</a>, <a href="http://localhost:6161/pkg/builtin/#error">error</a>)</pre>
+				<p>
+FromFeetAndFrames parses a timecode from a feet+frames string like
+</p>
+
+				
+				
+			
+				
+				<h3 id="FromFrames">func <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/parsers.go?s=1645:1709#L46">FromFrames</a>
+					<a class="permalink" href="godoc.4.html#FromFrames">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func FromFrames(frames <a href="http://localhost:6161/pkg/builtin/#int64">int64</a>, framerate <a href="godoc.3.html">rate</a>.<a href="godoc.3.html#Framerate">Framerate</a>) <a href="godoc.4.html#Timecode">Timecode</a></pre>
+				<p>
+FromFrames converts a frame count / number to a Timecode value.
+</p>
+
+				
+				
+			
+				
+				<h3 id="FromPremiereTicks">func <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/parsers.go?s=7763:7833#L228">FromPremiereTicks</a>
+					<a class="permalink" href="godoc.4.html#FromPremiereTicks">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func FromPremiereTicks(ticks <a href="http://localhost:6161/pkg/builtin/#int64">int64</a>, framerate <a href="godoc.3.html">rate</a>.<a href="godoc.3.html#Framerate">Framerate</a>) <a href="godoc.4.html#Timecode">Timecode</a></pre>
+				<p>
+FromPremiereTicks returns a new Timecode from a number of Adobe Premiere Pro Ticks.
+</p>
+<p>
+The resulting timecode will be rounded to the nearest whole-frame, given framerate.
+</p>
+
+				
+				
+			
+				
+				<h3 id="FromRuntime">func <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/parsers.go?s=5010:5086#L147">FromRuntime</a>
+					<a class="permalink" href="godoc.4.html#FromRuntime">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func FromRuntime(runtime <a href="http://localhost:6161/pkg/builtin/#string">string</a>, framerate <a href="godoc.3.html">rate</a>.<a href="godoc.3.html#Framerate">Framerate</a>) (<a href="godoc.4.html#Timecode">Timecode</a>, <a href="http://localhost:6161/pkg/builtin/#error">error</a>)</pre>
+				<p>
+FromRuntime parses a new timecode from a runtime string like &#34;01:12:34.342&#34;.
+</p>
+
+				
+				
+			
+				
+				<h3 id="FromSeconds">func <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/parsers.go?s=315:384#L5">FromSeconds</a>
+					<a class="permalink" href="godoc.4.html#FromSeconds">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func FromSeconds(seconds *<a href="http://localhost:6161/pkg/math/big/">big</a>.<a href="http://localhost:6161/pkg/math/big/#Rat">Rat</a>, framerate <a href="godoc.3.html">rate</a>.<a href="godoc.3.html#Framerate">Framerate</a>) <a href="godoc.4.html#Timecode">Timecode</a></pre>
+				<p>
+FromSeconds creates a new Timecode based on a rational representation of the
+seconds count.
+</p>
+<p>
+seconds will be rounded to the nearest whole-frame based on rate.
+</p>
+
+				
+				
+			
+				
+				<h3 id="FromTimecode">func <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/parsers.go?s=1991:2063#L57">FromTimecode</a>
+					<a class="permalink" href="godoc.4.html#FromTimecode">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func FromTimecode(tc <a href="http://localhost:6161/pkg/builtin/#string">string</a>, framerate <a href="godoc.3.html">rate</a>.<a href="godoc.3.html#Framerate">Framerate</a>) (<a href="godoc.4.html#Timecode">Timecode</a>, <a href="http://localhost:6161/pkg/builtin/#error">error</a>)</pre>
+				<p>
+FromTimecode parses a new timecode value from a string.
+</p>
+
+				<div id="example_FromTimecode_basic" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (Basic)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (Basic)</span></p>
+		
+		
+		
+			<p>Code:</p>
+			<pre class="code">timecode, _ := tc.FromTimecode(&#34;01:00:00:00&#34;, rate.F23_98)
+
+fmt.Println(timecode)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">01:00:00:00 @ 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+<div id="example_FromTimecode_overflow" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (Overflow)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (Overflow)</span></p>
+		<p>We can also parse timecodes where a value has overflowed it&#39;s place.
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code"><span class="comment">// The max value that SHOULD appear in the frames place is &#39;23&#39;.</span>
+timecode, _ := tc.FromTimecode(&#34;00:00:00:48&#34;, rate.F23_98)
+
+<span class="comment">// But that&#39;s okay</span>
+fmt.Println(timecode)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">00:00:02:00 @ 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+<div id="example_FromTimecode_partial" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (Partial)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (Partial)</span></p>
+		<p>We can parse partial timecodes with no problems.
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">timecode, _ := tc.FromTimecode(&#34;1:12&#34;, rate.F23_98)
+
+fmt.Println(timecode)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">00:00:01:12 @ 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+
+				
+			
+
+			
+				
+				<h3 id="Timecode.Abs">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go?s=3511:3544#L119">Abs</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Abs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Abs() <a href="godoc.4.html#Timecode">Timecode</a></pre>
+				<p>
+Abs returns the absolute value of the Timecode.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Add">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go?s=1273:1320#L43">Add</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Add">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Add(other <a href="godoc.4.html#Timecode">Timecode</a>) <a href="godoc.4.html#Timecode">Timecode</a></pre>
+				<p>
+Add adds two timecodes together using their real-world seconds values, rounded to
+the nearest frame
+</p>
+<p>
+The returned timecode will contain the framerate of the calling timecode.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Cmp">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go?s=996:1038#L35">Cmp</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Cmp">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Cmp(other <a href="godoc.4.html#Timecode">Timecode</a>) <a href="godoc.4.html#Cmp">Cmp</a></pre>
+				<p>
+Cmp compares tc and other and returns:
+</p>
+<pre>-1 if tc &lt;  other
+ 0 if tc == other
++1 if tc &gt;  other
+</pre>
+<p>
+Comparisons are done by comparing the real-world seconds value, so
+01:00:00:00 @ 24 fps will be less than 01:00:00:00 @ 23.98 NTSC
+</p>
+
+				
+				<div id="example_Timecode_Cmp" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example</span></p>
+		<p>Basic comparison
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">tc1, _ := tc.FromTimecode(&#34;01:00:00:00&#34;, rate.F23_98)
+tc2, _ := tc.FromTimecode(&#34;02:00:00:00&#34;, rate.F23_98)
+
+<span class="comment">// The returned type is a new type of int, but implements fmt.Stringer</span>
+fmt.Println(tc1.Cmp(tc2))
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">LT
+</pre>
+			
+		
+	</div>
+</div>
+<div id="example_Timecode_Cmp_mixedRates" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (MixedRates)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (MixedRates)</span></p>
+		<p>Comparisons are done based on the real-world seconds elapsed for a timecode.
+
+Both the timecodes below have a representation of 01:00:00:00, but the timecode
+running at an NTSC rate will take slightly longer to reach that value than the
+timecode running at true 24 fps.
+
+We can see this by checking their runtimes.
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">tc1, _ := tc.FromTimecode(&#34;01:00:00:00&#34;, rate.F23_98)
+tc2, _ := tc.FromTimecode(&#34;01:00:00:00&#34;, rate.F24)
+
+fmt.Println(tc1.Cmp(tc2))
+fmt.Println(&#34;RUNTIME 1:&#34;, tc1.Runtime(3))
+fmt.Println(&#34;RUNTIME 2:&#34;, tc2.Runtime(3))
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">GT
+RUNTIME 1: 01:00:03.6
+RUNTIME 2: 01:00:00.0
+</pre>
+			
+		
+	</div>
+</div>
+
+				
+			
+				
+				<h3 id="Timecode.Div">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go?s=2162:2211#L79">Div</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Div">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Div(divisor *<a href="http://localhost:6161/pkg/math/big/">big</a>.<a href="http://localhost:6161/pkg/math/big/#Rat">Rat</a>) <a href="godoc.4.html#Timecode">Timecode</a></pre>
+				<p>
+Div divides a timecode by a scalar. Divide returns a result as if floor division had
+been done to the frame count.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.DivMod">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go?s=2852:2935#L98">DivMod</a>
+					<a class="permalink" href="godoc.4.html#Timecode.DivMod">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) DivMod(divisor *<a href="http://localhost:6161/pkg/math/big/">big</a>.<a href="http://localhost:6161/pkg/math/big/#Rat">Rat</a>) (dividend <a href="godoc.4.html#Timecode">Timecode</a>, remainder <a href="godoc.4.html#Timecode">Timecode</a>)</pre>
+				<p>
+DivMod divides a timecode by a scalar and returns the dividend and remainder.
+DivMod returns a result as if floor division had been done to the frame count.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.FeetAndFrames">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go?s=7471:7512#L264">FeetAndFrames</a>
+					<a class="permalink" href="godoc.4.html#Timecode.FeetAndFrames">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) FeetAndFrames() <a href="http://localhost:6161/pkg/builtin/#string">string</a></pre>
+				<p>
+FeetAndFrames returns the number of feet and frames this timecode represents if it were
+shot on 35mm 4-perf film (16 frames per foot). ex: &#39;5400+13&#39;.
+</p>
+<h3 id="hdr-What_it_is">What it is</h3>
+<p>
+On physical film, each foot contains a certain number of frames. For 35mm, 4-perf film
+(the most common type on Hollywood movies), this number is 16 frames per foot.
+Feet-And-Frames was often used in place of Keycode to quickly reference a frame in the
+edit.
+</p>
+<h3 id="hdr-Where_you_see_it">Where you see it</h3>
+<p>
+For the most part, feet + frames has died out as a reference, because digital media is
+not measured in feet. The most common place it is still used is Studio Sound
+Departments. Many Sound Mixers and Designers intuitively think in feet + frames, and it
+is often burned into the reference picture for them.
+</p>
+<p>
+• Telecine.
+</p>
+<p>
+• Sound turnover reference picture.
+</p>
+<p>
+• Sound turnover change lists.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Frames">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go?s=4752:4785#L171">Frames</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Frames">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Frames() <a href="http://localhost:6161/pkg/builtin/#int64">int64</a></pre>
+				<p>
+Frames returns the number of frames that would have elapsed between 00:00:00:00 and this
+timecode.
+</p>
+<h3 id="hdr-What_it_is">What it is</h3>
+<p>
+Frame number / frames count is the number of a frame if the timecode started at
+00:00:00:00 and had been running until the current value. A timecode of &#39;00:00:00:10&#39;
+has a frame number of 10. A timecode of &#39;01:00:00:00&#39; has a frame number of 86400.
+</p>
+<h3 id="hdr-Where_you_see_it">Where you see it</h3>
+<p>
+• Frame-sequence files: &#39;my_vfx_shot.0086400.exr&#39;
+</p>
+<p>
+• FCP7XML cut lists:
+</p>
+<pre>&lt;timecode&gt;
+	&lt;rate&gt;
+		&lt;timebase&gt;24&lt;/timebase&gt;
+		&lt;ntsc&gt;TRUE&lt;/ntsc&gt;
+	&lt;/rate&gt;
+	&lt;string&gt;01:00:00:00&lt;/string&gt;
+	&lt;frame&gt;86400&lt;/frame&gt;  &lt;!-- &lt;====THIS LINE--&gt;
+	&lt;displayformat&gt;NDF&lt;/displayformat&gt;
+&lt;/timecode&gt;
+</pre>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.IsNegative">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go?s=1171:1207#L36">IsNegative</a>
+					<a class="permalink" href="godoc.4.html#Timecode.IsNegative">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) IsNegative() <a href="http://localhost:6161/pkg/builtin/#bool">bool</a></pre>
+				<p>
+IsNegative returns true if the value is negative.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Mod">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go?s=2592:2641#L91">Mod</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Mod">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Mod(divisor *<a href="http://localhost:6161/pkg/math/big/">big</a>.<a href="http://localhost:6161/pkg/math/big/#Rat">Rat</a>) <a href="godoc.4.html#Timecode">Timecode</a></pre>
+				<p>
+Mod divides a timecode by a scalar and returns the dividend and remainder. Mod
+returns a result as if floor division had been done to the frame count.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Mul">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go?s=1852:1904#L67">Mul</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Mul">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Mul(multiplier *<a href="http://localhost:6161/pkg/math/big/">big</a>.<a href="http://localhost:6161/pkg/math/big/#Rat">Rat</a>) <a href="godoc.4.html#Timecode">Timecode</a></pre>
+				<p>
+Mul multiplies a timecode by a scalar.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Neg">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go?s=3302:3335#L108">Neg</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Neg">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Neg() <a href="godoc.4.html#Timecode">Timecode</a></pre>
+				<p>
+Neg returns the negative version of the timecode (will be positive if current value
+is negative).
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.PremiereTicks">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go?s=8428:8468#L308">PremiereTicks</a>
+					<a class="permalink" href="godoc.4.html#Timecode.PremiereTicks">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) PremiereTicks() <a href="http://localhost:6161/pkg/builtin/#int64">int64</a></pre>
+				<p>
+PremiereTicks returns the number of elapsed ticks this timecode represents in Adobe
+Premiere Pro.
+</p>
+<h3 id="hdr-What_it_is">What it is</h3>
+<p>
+Internally, Adobe Premiere Pro uses ticks to divide up a second, and keep track of how
+far into that second we are. There are 254016000000 ticks in a second, regardless of
+framerate in Premiere.
+</p>
+<h3 id="hdr-Where_you_see_it">Where you see it</h3>
+<p>
+• Premiere Pro Panel functions and scripts.
+</p>
+<p>
+• FCP7XML cutlists generated from Premiere:
+</p>
+<pre>&lt;clipitem id=&#34;clipitem-1&#34;&gt;
+	...
+	&lt;in&gt;158&lt;/in&gt;
+	&lt;out&gt;1102&lt;/out&gt;
+	&lt;pproTicksIn&gt;1673944272000&lt;/pproTicksIn&gt;
+	&lt;pproTicksOut&gt;11675231568000&lt;/pproTicksOut&gt;
+	...
+&lt;/clipitem&gt;
+</pre>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Rate">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go?s=1056:1096#L31">Rate</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Rate">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Rate() <a href="godoc.3.html">rate</a>.<a href="godoc.3.html#Framerate">Framerate</a></pre>
+				<p>
+Rate returns the rate.Framerate of the timecode.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Rebase">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go?s=3703:3763#L129">Rebase</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Rebase">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Rebase(framerate <a href="godoc.3.html">rate</a>.<a href="godoc.3.html#Framerate">Framerate</a>) <a href="godoc.4.html#Timecode">Timecode</a></pre>
+				<p>
+Rebase returns a Timecode with the same number of frames running at a different
+Framerate.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Runtime">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go?s=5658:5706#L205">Runtime</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Runtime">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Runtime(precision <a href="http://localhost:6161/pkg/builtin/#int">int</a>) <a href="http://localhost:6161/pkg/builtin/#string">string</a></pre>
+				<p>
+Runtime Returns the true, real-world runtime of the timecode in HH:MM:SS.FFFFFFFFF
+format.
+</p>
+<h3 id="hdr-What_it_is">What it is</h3>
+<p>
+The formatted version of seconds. It looks like timecode, but with a decimal seconds
+value instead of a frame number place.
+</p>
+<h3 id="hdr-Where_you_see_it">Where you see it</h3>
+<p>
+• Anywhere real-world time is used.
+</p>
+<p>
+• FFMPEG commands:
+</p>
+<pre>ffmpeg -ss 00:00:30.5 -i input.mov -t 00:00:10.25 output.mp4
+</pre>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Seconds">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go?s=1802:1839#L56">Seconds</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Seconds">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Seconds() *<a href="http://localhost:6161/pkg/math/big/">big</a>.<a href="http://localhost:6161/pkg/math/big/#Rat">Rat</a></pre>
+				<p>
+Seconds returns the rational representation of the real-world seconds that would have
+elapsed between 00:00:00:00 and this timecode.
+</p>
+<h3 id="hdr-What_it_is">What it is</h3>
+<p>
+The number of real-world seconds that have elapsed between 00:00:00:00 and the timecode
+value. With NTSC timecode, the timecode drifts from the real-world elapsed time.
+</p>
+<h3 id="hdr-Where_you_see_it">Where you see it</h3>
+<p>
+• Anywhere real-world time needs to be calculated.
+</p>
+<p>
+• In code that needs to do lossless calculations of playback time not rely on frame
+</p>
+<pre>count, like adding two timecodes together with different framerates.
+</pre>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Sections">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go?s=2054:2100#L63">Sections</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Sections">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Sections() <a href="godoc.4.html#TimecodeSections">TimecodeSections</a></pre>
+				<p>
+Sections returns the individual sections of a timecode string as int values.
+</p>
+<p>
+Note: this method will panic on framerates where the timebase is not a whole integer.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.String">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go?s=909:943#L26">String</a>
+					<a class="permalink" href="godoc.4.html#Timecode.String">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) String() <a href="http://localhost:6161/pkg/builtin/#string">string</a></pre>
+				<p>
+String implements fmt.Stringer.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Sub">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecodeOps.go?s=1623:1670#L56">Sub</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Sub">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Sub(other <a href="godoc.4.html#Timecode">Timecode</a>) <a href="godoc.4.html#Timecode">Timecode</a></pre>
+				<p>
+Sub subtracts a timecode from the caller using their real-world seconds values.
+</p>
+<p>
+The returned timecode will contain the framerate of the calling timecode.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Timecode.Timecode">func (Timecode) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go?s=3566:3602#L117">Timecode</a>
+					<a class="permalink" href="godoc.4.html#Timecode.Timecode">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (tc <a href="godoc.4.html#Timecode">Timecode</a>) Timecode() <a href="http://localhost:6161/pkg/builtin/#string">string</a></pre>
+				<p>
+Timecode returns the the formatted SMPTE timecode: (ex: 01:00:00:00).
+</p>
+<h3 id="hdr-What_it_is">What it is</h3>
+<p>
+Timecode is used as a human-readable way to represent the id of a given frame. It is
+formatted to give a rough sense of where to find a frame:
+{HOURS}:{MINUTES}:{SECONDS}:{FRAME}. For more on timecode, see Frame.io&#39;s
+[excellent post](<a href="https://blog.frame.io/2017/07/17/timecode-and-frame-rates/">https://blog.frame.io/2017/07/17/timecode-and-frame-rates/</a>) on the
+subject.
+</p>
+<h3 id="hdr-Where_you_see_it">Where you see it</h3>
+<p>
+Timecode is ubiquitous in video editing, a small sample of places you might see
+timecode:
+</p>
+<p>
+• Source and Playback monitors in your favorite NLE.
+</p>
+<p>
+• Burned into the footage for dailies.
+</p>
+<p>
+• Cut lists like an EDL.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="TimecodeSections">type <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/tc/timecode.go?s=272:610#L4">TimecodeSections</a>
+				<a class="permalink" href="godoc.4.html#TimecodeSections">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+TimecodeSections holds the individual sections of a timecode for formatting /
+manipulation.
+</p>
+
+			<pre>type TimecodeSections struct {
+<span id="TimecodeSections.IsNegative"></span>    <span class="comment">// IsNegative is whether the timecode is less than 0.</span>
+    IsNegative <a href="http://localhost:6161/pkg/builtin/#bool">bool</a>
+<span id="TimecodeSections.Hours"></span>    <span class="comment">// Hours is the value of the hours place.</span>
+    Hours <a href="http://localhost:6161/pkg/builtin/#int64">int64</a>
+<span id="TimecodeSections.Minutes"></span>    <span class="comment">// Minutes is the value of the hours place.</span>
+    Minutes <a href="http://localhost:6161/pkg/builtin/#int64">int64</a>
+<span id="TimecodeSections.Seconds"></span>    <span class="comment">// Seconds is the value of the hours place.</span>
+    Seconds <a href="http://localhost:6161/pkg/builtin/#int64">int64</a>
+<span id="TimecodeSections.Frames"></span>    <span class="comment">// Frames is the value of the hours place.</span>
+    Frames <a href="http://localhost:6161/pkg/builtin/#int64">int64</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.13.5.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="http://localhost:6161/LICENSE">BSD license</a>.<br>
+<a href="http://localhost:6161/doc/tos.html">Terms of Service</a> |
+<a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

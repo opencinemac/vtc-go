@@ -78,6 +78,7 @@ install-tools:
 doc:
 	rm -rf ./zdocs/build
 	mkdir ./zdocs/build
+	- docmodule-go
 	python setup.py build_sphinx -E
 	sleep 1
 	-python3 ./zdevelop/make_scripts/open_docs.py

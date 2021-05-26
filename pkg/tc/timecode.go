@@ -58,8 +58,9 @@ value. With NTSC timecode, the timecode drifts from the real-world elapsed time.
 
 Where you see it
 
-- Anywhere real-world time needs to be calculated.
-- In code that needs to do lossless calculations of playback time not rely on frame
+• Anywhere real-world time needs to be calculated.
+
+• In code that needs to do lossless calculations of playback time not rely on frame
   count, like adding two timecodes together with different framerates.
 */
 func (tc Timecode) Seconds() *big.Rat {
@@ -117,14 +118,11 @@ Where you see it
 Timecode is ubiquitous in video editing, a small sample of places you might see
 timecode:
 
-- Source and Playback monitors in your favorite NLE.
-- Burned into the footage for dailies.
-- Cut lists like an EDL.
+• Source and Playback monitors in your favorite NLE.
 
-Warning
+• Burned into the footage for dailies.
 
-Currently, this method will panic on framerates where the timebase is not a whole
-integer.
+• Cut lists like an EDL.
 */
 func (tc Timecode) Timecode() string {
 	sections := tc.Sections()
@@ -165,10 +163,10 @@ has a frame number of 10. A timecode of '01:00:00:00' has a frame number of 8640
 
 Where you see it
 
-- Frame-sequence files: 'my_vfx_shot.0086400.exr'
-- FCP7XML cut lists:
+• Frame-sequence files: 'my_vfx_shot.0086400.exr'
 
-	```xml
+• FCP7XML cut lists:
+
 	<timecode>
 		<rate>
 			<timebase>24</timebase>
@@ -178,7 +176,7 @@ Where you see it
 		<frame>86400</frame>  <!-- <====THIS LINE-->
 		<displayformat>NDF</displayformat>
 	</timecode>
-	```
+
 */
 func (tc Timecode) Frames() int64 {
 	playback := tc.rate.Playback()
@@ -207,12 +205,12 @@ value instead of a frame number place.
 
 Where you see it
 
-- Anywhere real-world time is used.
-- FFMPEG commands:
+• Anywhere real-world time is used.
 
-   ```shell
-   ffmpeg -ss 00:00:30.5 -i input.mov -t 00:00:10.25 output.mp4
-   ```
+• FFMPEG commands:
+
+	ffmpeg -ss 00:00:30.5 -i input.mov -t 00:00:10.25 output.mp4
+
 */
 func (tc Timecode) Runtime(precision int) string {
 	seconds := tc.Seconds()
@@ -267,9 +265,11 @@ not measured in feet. The most common place it is still used is Studio Sound
 Departments. Many Sound Mixers and Designers intuitively think in feet + frames, and it
 is often burned into the reference picture for them.
 
-- Telecine.
-- Sound turnover reference picture.
-- Sound turnover change lists.
+• Telecine.
+
+• Sound turnover reference picture.
+
+• Sound turnover change lists.
 */
 func (tc Timecode) FeetAndFrames() string {
 	frames := tc.Frames()
@@ -302,10 +302,10 @@ framerate in Premiere.
 
 Where you see it
 
-- Premiere Pro Panel functions and scripts
-- FCP7XML cutlists generated from Premiere:
+• Premiere Pro Panel functions and scripts.
 
-	```xml
+• FCP7XML cutlists generated from Premiere:
+
 	<clipitem id="clipitem-1">
 		...
 		<in>158</in>
@@ -314,7 +314,6 @@ Where you see it
 		<pproTicksOut>11675231568000</pproTicksOut>
 		...
 	</clipitem>
-	```
 */
 func (tc Timecode) PremiereTicks() int64 {
 	seconds := tc.Seconds()
