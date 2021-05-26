@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>rate - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.13.5";</script>
+<script src="godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="http://localhost:6161/pkg/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="http://localhost:6161/pkg/">GoDoc</a></div>
+<a href="godoc.3.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form method="GET" action="http://localhost:6161/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package rate
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/opencinemac/vtc-go/pkg/rate"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="godoc.3.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="godoc.3.html#pkg-index" class="indexLink">Index</a></dd>
+			
+				<dd><a href="godoc.3.html#pkg-examples" class="examplesLink">Examples</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				<p>
+Package rate offers methods and types for parsing and constructing framerate values.
+</p>
+<h3 id="hdr-Parsing_and_NTSC_Framrates">Parsing and NTSC Framrates</h3>
+<p>
+When parsing NTSC Framerates, the playback speed will be rounded to the nearest valid
+NTSC value of n/1001, so &#39;24&#39; and &#39;23.98&#39; will both get coerced to 24000/1001.
+</p>
+<p>
+Non-NTSC Framerates will be left as-is, since there is no distinction between the
+framerate and the timebase. Attempting to parse a float value will result in an error
+for non-ntsc Framerates, as floats are not precise enough to know with certainty that
+the correct, TRUE desired rate is being used.
+</p>
+
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+				<dd><a href="godoc.3.html#pkg-variables">Variables</a></dd>
+			
+			
+			
+				
+				<dd><a href="godoc.3.html#Framerate">type Framerate</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.3.html#FromFloat">func FromFloat(value float64, ntsc NTSC) (Framerate, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.3.html#FromInt">func FromInt(value int64, ntsc NTSC) (Framerate, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.3.html#FromRat">func FromRat(value *big.Rat, ntsc NTSC) (Framerate, error)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.3.html#FromString">func FromString(value string, ntsc NTSC) (Framerate, error)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.3.html#Framerate.NTSC">func (rate Framerate) NTSC() NTSC</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.3.html#Framerate.Playback">func (rate Framerate) Playback() *big.Rat</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.3.html#Framerate.String">func (rate Framerate) String() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.3.html#Framerate.Timebase">func (rate Framerate) Timebase() *big.Rat</a></dd>
+				
+			
+				
+				<dd><a href="godoc.3.html#NTSC">type NTSC</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.3.html#NTSC.IsNTSC">func (ntsc NTSC) IsNTSC() bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.3.html#NTSC.String">func (ntsc NTSC) String() string</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="godoc.3.html#NTSC.Validate">func (ntsc NTSC) Validate() error</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+		<div id="pkg-examples">
+			<h3>Examples</h3>
+			<div class="js-expandAll expandAll collapsed">(Expand All)</div>
+			<dl>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromFloat_nonNTSCError">FromFloat (NonNTSCError)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromFloat_ntscPlayback">FromFloat (NtscPlayback)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromFloat_ntscTimebase">FromFloat (NtscTimebase)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromInt_fps">FromInt (Fps)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromInt_ntsc">FromInt (Ntsc)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromRat_fps">FromRat (Fps)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromRat_ntscPlayback">FromRat (NtscPlayback)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromRat_ntscTimebase">FromRat (NtscTimebase)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromString_float">FromString (Float)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromString_int">FromString (Int)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromString_rationalNTSCFlipped">FromString (RationalNTSCFlipped)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromString_rationalNTSCPlayback">FromString (RationalNTSCPlayback)</a></dd>
+			
+			<dd><a class="exampleLink" href="godoc.3.html#example_FromString_rationalNTSCTimebase">FromString (RationalNTSCTimebase)</a></dd>
+			
+			</dl>
+		</div>
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/doc.go">doc.go</a>
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/errors.go">errors.go</a>
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/framerate.go">framerate.go</a>
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/ntsc.go">ntsc.go</a>
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/parsers.go">parsers.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+			<h2 id="pkg-variables">Variables</h2>
+			
+				<p>
+rate comes with a number of sentinel errors for catching framerate parsing problems.
+</p>
+
+				<pre>var (
+    <span class="comment">// ErrParseFramerate is returned when there is an error parsing a Framerate, and</span>
+    <span class="comment">// is wrapped by all other errors.</span>
+    <span id="ErrParseFramerate">ErrParseFramerate</span> = <a href="http://localhost:6161/pkg/errors/">errors</a>.<a href="http://localhost:6161/pkg/errors/#New">New</a>(&#34;could not parse Framerate&#34;)
+
+    <span class="comment">// ErrBadDropFrameRate is returned when a drop-frame playback rate is not cleanly</span>
+    <span class="comment">// divisible by 30000/1001 (29.97 NTSC) For more information on why drop-frame</span>
+    <span class="comment">// framerates must be a clean multiple of 29.97 NTSC, see:</span>
+    <span class="comment">// https://www.davidheidelberger.com/2010/06/10/drop-frame-timecode/</span>
+    <span id="ErrBadDropFrameRate">ErrBadDropFrameRate</span> = <a href="http://localhost:6161/pkg/fmt/">fmt</a>.<a href="http://localhost:6161/pkg/fmt/#Errorf">Errorf</a>(
+        &#34;%w: drop-frame Framerate values must have a playback cleanly divisible by &#34;+
+            &#34;30000/1001&#34;,
+        <a href="godoc.3.html#ErrParseFramerate">ErrParseFramerate</a>,
+    )
+
+    <span class="comment">// ErrImprecise is returned when a float is being parsed as part of a non-NTSC</span>
+    <span class="comment">// framerate. Without knowing how to coerce the float to a sane framerate, the values</span>
+    <span class="comment">// are not precise enough to yield a meaningful value.</span>
+    <span id="ErrImprecise">ErrImprecise</span> = <a href="http://localhost:6161/pkg/fmt/">fmt</a>.<a href="http://localhost:6161/pkg/fmt/#Errorf">Errorf</a>(
+        &#34;%w: non-ntsc framerates cannot be parsed from floats due to imprecision&#34;,
+        <a href="godoc.3.html#ErrParseFramerate">ErrParseFramerate</a>,
+    )
+
+    <span class="comment">// ErrNegative is returned when a negative value is passed to a Framerate parser.</span>
+    <span class="comment">// Negative framerates are not supported.</span>
+    <span id="ErrNegative">ErrNegative</span> = <a href="http://localhost:6161/pkg/fmt/">fmt</a>.<a href="http://localhost:6161/pkg/fmt/#Errorf">Errorf</a>(&#34;%w: Framerate cannot be negative&#34;, <a href="godoc.3.html#ErrParseFramerate">ErrParseFramerate</a>)
+
+    <span class="comment">// ErrBadNtsc is returned when an enum value outside the predefined NTSC constant values</span>
+    <span class="comment">// is passed into a Framerate parser.</span>
+    <span id="ErrBadNtsc">ErrBadNtsc</span> = <a href="http://localhost:6161/pkg/fmt/">fmt</a>.<a href="http://localhost:6161/pkg/fmt/#Errorf">Errorf</a>(&#34;%w: NTSC value not recognized&#34;, <a href="godoc.3.html#ErrParseFramerate">ErrParseFramerate</a>)
+)</pre>
+			
+				<p>
+vtc comes with a number of pre-defined, common Framerate values.
+</p>
+
+				<pre>var (
+    <span class="comment">// F23_98 is a 23.98 NTSC, Non-Drop framerate.</span>
+    <span id="F23_98">F23_98</span> = mustNew(24, <a href="godoc.3.html#NTSCNonDrop">NTSCNonDrop</a>)
+
+    <span class="comment">// F24 is a 24 fps, Non-NTSC framerate.</span>
+    <span id="F24">F24</span> = mustNew(24, <a href="godoc.3.html#NTSCNone">NTSCNone</a>)
+
+    <span class="comment">// F29_97Ndf is a 29.97 NTSC, Non-Drop framerate.</span>
+    <span id="F29_97Ndf">F29_97Ndf</span> = mustNew(30, <a href="godoc.3.html#NTSCNonDrop">NTSCNonDrop</a>)
+
+    <span class="comment">// F29_97Df is a 29.97 NTSC, Drop-Frame framerate.</span>
+    <span id="F29_97Df">F29_97Df</span> = mustNew(30, <a href="godoc.3.html#NTSCDrop">NTSCDrop</a>)
+
+    <span class="comment">// F30 is a 30 fps, Non-NTSC framerate.</span>
+    <span id="F30">F30</span> = mustNew(30, <a href="godoc.3.html#NTSCNone">NTSCNone</a>)
+
+    <span class="comment">// F47_95 is a 57.95 NTSC, Non-Drop framerate.</span>
+    <span id="F47_95">F47_95</span> = mustNew(48, <a href="godoc.3.html#NTSCNonDrop">NTSCNonDrop</a>)
+
+    <span class="comment">// F48 is a 48 fps, Non-NTSC framerate.</span>
+    <span id="F48">F48</span> = mustNew(48, <a href="godoc.3.html#NTSCNone">NTSCNone</a>)
+
+    <span class="comment">// F59_94Ndf is a 59.94 NTSC, Non-Drop framerate.</span>
+    <span id="F59_94Ndf">F59_94Ndf</span> = mustNew(60, <a href="godoc.3.html#NTSCNonDrop">NTSCNonDrop</a>)
+
+    <span class="comment">// F59_94Df is a 59.94 NTSC, Drop-Frame framerate.</span>
+    <span id="F59_94Df">F59_94Df</span> = mustNew(60, <a href="godoc.3.html#NTSCDrop">NTSCDrop</a>)
+
+    <span class="comment">// F60 is a 60 fps, Non-NTSC framerate.</span>
+    <span id="F60">F60</span> = mustNew(60, <a href="godoc.3.html#NTSCNone">NTSCNone</a>)
+)</pre>
+			
+		
+		
+		
+			
+			
+			<h2 id="Framerate">type <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/framerate.go?s=251:310#L2">Framerate</a>
+				<a class="permalink" href="godoc.3.html#Framerate">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+Framerate is the rate at which a video file frames are played back.
+</p>
+<p>
+Framerate is measured in frames-per-second (24000/1001 = 23.98 frames-per-second).
+</p>
+
+			<pre>type Framerate struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="FromFloat">func <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/parsers.go?s=2152:2211#L48">FromFloat</a>
+					<a class="permalink" href="godoc.3.html#FromFloat">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func FromFloat(value <a href="http://localhost:6161/pkg/builtin/#float64">float64</a>, ntsc <a href="godoc.3.html#NTSC">NTSC</a>) (<a href="godoc.3.html#Framerate">Framerate</a>, <a href="http://localhost:6161/pkg/builtin/#error">error</a>)</pre>
+				<p>
+FromFloat creates a new Framerate from a float64 value.
+</p>
+<p>
+If ntsc == NTSCNone, this method will fail. Floating point values are not precise enough to be yield expected
+results if not being coerced to the nearest valid NTSC value.
+</p>
+
+				<div id="example_FromFloat_nonNTSCError" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (NonNTSCError)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (NonNTSCError)</span></p>
+		<p>Parse a Framerate from a float64 as a non-ntsc framerate
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">_, err := rate.FromFloat(24.0, rate.NTSCNone)
+fmt.Println(&#34;ERROR:&#34;, err)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">ERROR: could not parse Framerate: non-ntsc framerates cannot be parsed from floats due to imprecision
+</pre>
+			
+		
+	</div>
+</div>
+<div id="example_FromFloat_ntscPlayback" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (NtscPlayback)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (NtscPlayback)</span></p>
+		<p>Parse a Framerate from a float64 as a NTSC playback speed.
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">framerate, err := rate.FromFloat(23.98, rate.NTSCNonDrop)
+if err != nil {
+    panic(err)
+}
+
+fmt.Println(&#34;RESULT:&#34;, framerate)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">RESULT: 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+<div id="example_FromFloat_ntscTimebase" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (NtscTimebase)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (NtscTimebase)</span></p>
+		<p>Parse a Framerate from a float64 as a NTSC timebase.
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">framerate, err := rate.FromFloat(24.0, rate.NTSCNonDrop)
+if err != nil {
+    panic(err)
+}
+
+fmt.Println(&#34;RESULT:&#34;, framerate)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">RESULT: 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+
+				
+			
+				
+				<h3 id="FromInt">func <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/parsers.go?s=2526:2581#L60">FromInt</a>
+					<a class="permalink" href="godoc.3.html#FromInt">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func FromInt(value <a href="http://localhost:6161/pkg/builtin/#int64">int64</a>, ntsc <a href="godoc.3.html#NTSC">NTSC</a>) (<a href="godoc.3.html#Framerate">Framerate</a>, <a href="http://localhost:6161/pkg/builtin/#error">error</a>)</pre>
+				<p>
+FromInt converts an integer value into a Framerate.
+</p>
+<p>
+If ntsc != NTSCNone, the value wil be assumed to be a timebase, and will be multiplied by 1000 and put over a
+denominator of 1001.
+</p>
+
+				<div id="example_FromInt_fps" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (Fps)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (Fps)</span></p>
+		<p>Parse a Framerate from a int64 as a non-ntsc framerate
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">framerate, err := rate.FromInt(24, rate.NTSCNone)
+if err != nil {
+    panic(err)
+}
+
+fmt.Println(&#34;RESULT:&#34;, framerate)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">RESULT: 24 fps
+</pre>
+			
+		
+	</div>
+</div>
+<div id="example_FromInt_ntsc" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (Ntsc)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (Ntsc)</span></p>
+		<p>Parse a Framerate from a int64 as an ntsc timebase
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">framerate, err := rate.FromInt(24, rate.NTSCNonDrop)
+if err != nil {
+    panic(err)
+}
+
+fmt.Println(&#34;RESULT:&#34;, framerate)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">RESULT: 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+
+				
+			
+				
+				<h3 id="FromRat">func <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/parsers.go?s=725:783#L11">FromRat</a>
+					<a class="permalink" href="godoc.3.html#FromRat">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func FromRat(value *<a href="http://localhost:6161/pkg/math/big/">big</a>.<a href="http://localhost:6161/pkg/math/big/#Rat">Rat</a>, ntsc <a href="godoc.3.html#NTSC">NTSC</a>) (<a href="godoc.3.html#Framerate">Framerate</a>, <a href="http://localhost:6161/pkg/builtin/#error">error</a>)</pre>
+				<p>
+FromRat creates a Framerate from a *big.Rat value.
+</p>
+<p>
+If ntsc != NTSCNone, value will be coerced to the nearest valid NTSC framerate by
+rounding to the nearest whole number, and putting over a denominator of 1001.
+</p>
+<p>
+IsNegative values are currently disallowed and will return an error.
+</p>
+<p>
+If ntsc == NTSCDrop and the value is not cleanly divisible by 30000/1001 after the
+normal NTSC coercion, an error will be returned. Drop-frame values must be a clean
+multiple of a 29.97 NTSC framerate. For more information on why this is, see:
+<a href="https://www.davidheidelberger.com/2010/06/10/drop-frame-timecode/">https://www.davidheidelberger.com/2010/06/10/drop-frame-timecode/</a>
+</p>
+
+				<div id="example_FromRat_fps" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (Fps)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (Fps)</span></p>
+		<p>Parse a Framerate from a *big.Rat non-NTSC playback speed
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">framerate, err := rate.FromRat(big.NewRat(24, 1), rate.NTSCNone)
+if err != nil {
+    panic(err)
+}
+
+fmt.Println(&#34;RESULT:&#34;, framerate)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">RESULT: 24 fps
+</pre>
+			
+		
+	</div>
+</div>
+<div id="example_FromRat_ntscPlayback" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (NtscPlayback)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (NtscPlayback)</span></p>
+		<p>Parse a Framerate from a *big.Rat NTSC playback speed
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">framerate, err := rate.FromRat(big.NewRat(24000, 1001), rate.NTSCNonDrop)
+if err != nil {
+    panic(err)
+}
+
+fmt.Println(&#34;RESULT:&#34;, framerate)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">RESULT: 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+<div id="example_FromRat_ntscTimebase" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (NtscTimebase)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (NtscTimebase)</span></p>
+		<p>Parse a Framerate from a *big.Rat NTSC timebase
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">framerate, err := rate.FromRat(big.NewRat(24, 1), rate.NTSCNonDrop)
+if err != nil {
+    panic(err)
+}
+
+fmt.Println(&#34;RESULT:&#34;, framerate)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">RESULT: 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+
+				
+			
+				
+				<h3 id="FromString">func <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/parsers.go?s=3100:3159#L76">FromString</a>
+					<a class="permalink" href="godoc.3.html#FromString">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func FromString(value <a href="http://localhost:6161/pkg/builtin/#string">string</a>, ntsc <a href="godoc.3.html#NTSC">NTSC</a>) (<a href="godoc.3.html#Framerate">Framerate</a>, <a href="http://localhost:6161/pkg/builtin/#error">error</a>)</pre>
+				<p>
+FromString creates a new Framerate from a string value, which may have the following forms:
+</p>
+<p>
+• Integer: &#39;24&#39;
+</p>
+<p>
+• Float: &#39;23.98&#39;
+</p>
+<p>
+• Rational: &#39;24/1&#39;
+</p>
+<p>
+Float representations are only allowed if ntsc != NTSCNone.
+</p>
+<p>
+It&#39;s common for some metadata reporting tools to represent the Timebase as &#39;1/24&#39; instead of &#39;24/1&#39;. If the
+numerator of a parsed rational is found to be smaller than the denominator, the rational will be inverted.
+</p>
+
+				<div id="example_FromString_float" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (Float)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (Float)</span></p>
+		<p>Parse a float string as an NTSC playback speed / timebase.
+
+Parsing float strings for non-ntsc Framerates will result in an error. Floats are
+not precise enough to parse without the ability to coerce to an NTSC rate.
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">framerate, err := rate.FromString(&#34;23.98&#34;, rate.NTSCNonDrop)
+if err != nil {
+    panic(err)
+}
+
+fmt.Println(&#34;RESULT:&#34;, framerate)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">RESULT: 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+<div id="example_FromString_int" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (Int)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (Int)</span></p>
+		<p>Parse an integer string as an NTSC playback timebase.
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">framerate, err := rate.FromString(&#34;24&#34;, rate.NTSCNonDrop)
+if err != nil {
+    panic(err)
+}
+
+fmt.Println(&#34;RESULT:&#34;, framerate)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">RESULT: 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+<div id="example_FromString_rationalNTSCFlipped" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (RationalNTSCFlipped)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (RationalNTSCFlipped)</span></p>
+		<p>Parse a rational string as an NTSC playback speed.
+
+Many applications report the timebase as the seconds-per-frame (1/24) rather than the
+frames-per-seconds (24/1). When parsing a rational string, FromString will
+automatically invert the timebase if the numerator is larger than the denominator.
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">framerate, err := rate.FromString(&#34;1/24&#34;, rate.NTSCNonDrop)
+if err != nil {
+    panic(err)
+}
+
+fmt.Println(&#34;RESULT:&#34;, framerate)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">RESULT: 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+<div id="example_FromString_rationalNTSCPlayback" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (RationalNTSCPlayback)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (RationalNTSCPlayback)</span></p>
+		<p>Parse a rational string as an NTSC playback speed.
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">framerate, err := rate.FromString(&#34;24000/1001&#34;, rate.NTSCNonDrop)
+if err != nil {
+    panic(err)
+}
+
+fmt.Println(&#34;RESULT:&#34;, framerate)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">RESULT: 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+<div id="example_FromString_rationalNTSCTimebase" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example (RationalNTSCTimebase)</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example (RationalNTSCTimebase)</span></p>
+		<p>Parse a rational string as an NTSC playback speed.
+</p>
+		
+		
+			<p>Code:</p>
+			<pre class="code">framerate, err := rate.FromString(&#34;24/1&#34;, rate.NTSCNonDrop)
+if err != nil {
+    panic(err)
+}
+
+fmt.Println(&#34;RESULT:&#34;, framerate)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">RESULT: 23.98 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+
+				
+			
+
+			
+				
+				<h3 id="Framerate.NTSC">func (Framerate) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/framerate.go?s=877:910#L24">NTSC</a>
+					<a class="permalink" href="godoc.3.html#Framerate.NTSC">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (rate <a href="godoc.3.html#Framerate">Framerate</a>) NTSC() <a href="godoc.3.html#NTSC">NTSC</a></pre>
+				<p>
+NTSC returns if and which type of NTSC standard this framerate adheres to.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Framerate.Playback">func (Framerate) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/framerate.go?s=1023:1064#L29">Playback</a>
+					<a class="permalink" href="godoc.3.html#Framerate.Playback">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (rate <a href="godoc.3.html#Framerate">Framerate</a>) Playback() *<a href="http://localhost:6161/pkg/math/big/">big</a>.<a href="http://localhost:6161/pkg/math/big/#Rat">Rat</a></pre>
+				<p>
+Playback returns the real-world playback speed of the Framerate in frames-per-second.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Framerate.String">func (Framerate) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/framerate.go?s=347:384#L8">String</a>
+					<a class="permalink" href="godoc.3.html#Framerate.String">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (rate <a href="godoc.3.html#Framerate">Framerate</a>) String() <a href="http://localhost:6161/pkg/builtin/#string">string</a></pre>
+				<p>
+String implements fmt.Stringer.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Framerate.Timebase">func (Framerate) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/framerate.go?s=1274:1315#L35">Timebase</a>
+					<a class="permalink" href="godoc.3.html#Framerate.Timebase">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (rate <a href="godoc.3.html#Framerate">Framerate</a>) Timebase() *<a href="http://localhost:6161/pkg/math/big/">big</a>.<a href="http://localhost:6161/pkg/math/big/#Rat">Rat</a></pre>
+				<p>
+Timebase returns the speed at which timecode is interpreted at in frames-per-second.
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="NTSC">type <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/ntsc.go?s=108:121#L1">NTSC</a>
+				<a class="permalink" href="godoc.3.html#NTSC">&#xb6;</a>
+				
+				
+			</h2>
+			<p>
+NTSC is an enum-like type for specifying whether a framerate adheres to the NTSC standard.
+</p>
+
+			<pre>type NTSC <a href="http://localhost:6161/pkg/builtin/#int">int</a></pre>
+
+			
+				
+				<pre>const (
+    <span class="comment">// NTSCNone means the framerate is not an NTSC framerate.</span>
+    <span id="NTSCNone">NTSCNone</span> <a href="godoc.3.html#NTSC">NTSC</a> = <a href="http://localhost:6161/pkg/builtin/#iota">iota</a>
+    <span class="comment">// NTSCNonDrop means this in an NTSC, Non-drop-frame framerate.</span>
+    <span id="NTSCNonDrop">NTSCNonDrop</span>
+    <span class="comment">// NTSCDrop means this in an NTSC, drop-frame framerate.</span>
+    <span id="NTSCDrop">NTSCDrop</span>
+)</pre>
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="NTSC.IsNTSC">func (NTSC) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/ntsc.go?s=746:776#L24">IsNTSC</a>
+					<a class="permalink" href="godoc.3.html#NTSC.IsNTSC">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ntsc <a href="godoc.3.html#NTSC">NTSC</a>) IsNTSC() <a href="http://localhost:6161/pkg/builtin/#bool">bool</a></pre>
+				<p>
+IsNTSC returns whether this value represents an NTSC standard.
+</p>
+<h3 id="hdr-Returns_false_for_NTSCNone">Returns false for NTSCNone</h3>
+<p>
+Returns true for NTSCNonDrop and NTSCDrop
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="NTSC.String">func (NTSC) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/ntsc.go?s=396:428#L6">String</a>
+					<a class="permalink" href="godoc.3.html#NTSC.String">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ntsc <a href="godoc.3.html#NTSC">NTSC</a>) String() <a href="http://localhost:6161/pkg/builtin/#string">string</a></pre>
+				<p>
+String implements fmt.Stringer.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="NTSC.Validate">func (NTSC) <a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/pkg/rate/ntsc.go?s=958:991#L30">Validate</a>
+					<a class="permalink" href="godoc.3.html#NTSC.Validate">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (ntsc <a href="godoc.3.html#NTSC">NTSC</a>) Validate() <a href="http://localhost:6161/pkg/builtin/#error">error</a></pre>
+				<p>
+Validate returns ErrBadNtsc if this value is not one of the pre-defined NTSC enum constants that ships with
+this library.
+</p>
+
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer">
+Build version go1.13.5.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="http://localhost:6161/LICENSE">BSD license</a>.<br>
+<a href="http://localhost:6161/doc/tos.html">Terms of Service</a> |
+<a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>

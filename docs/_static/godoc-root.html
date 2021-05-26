@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#375EAB">
+
+  <title>vtc - Go Documentation Server</title>
+
+<link type="text/css" rel="stylesheet" href="style.css">
+
+<script>window.initFuncs = [];</script>
+<script src="jquery.js" defer></script>
+
+
+
+<script>var goVersion = "go1.13.5";</script>
+<script src="godocs.js" defer></script>
+</head>
+<body>
+
+<div id='lowframe' style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="http://localhost:6161/pkg/">Go Documentation Server</a></div>
+<div class="top-heading" id="heading-narrow"><a href="http://localhost:6161/pkg/">GoDoc</a></div>
+<a href="vtc-go.html#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
+<form method="GET" action="http://localhost:6161/search">
+<div id="menu">
+
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
+</div>
+</form>
+
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package vtc
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script>
+	document.ANALYSIS_DATA = null;
+	document.CALLGRAPH = null;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/opencinemac/vtc-go"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="vtc-go.html#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="vtc-go.html#pkg-index" class="indexLink">Index</a></dd>
+			
+				<dd><a href="vtc-go.html#pkg-examples" class="examplesLink">Examples</a></dd>
+			
+			
+				<dd><a href="vtc-go.html#pkg-subdirectories">Subdirectories</a></dd>
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				<p>
+Package vtc is inspired by years of scripting workflow solutions in a Hollywood cutting
+room. It aims to capture all the ways in which timecode is used throughout the industry
+so users can spend more time on their workflow logic, and less time handling the
+corner-cases of parsing and calculating timecode.
+</p>
+<p>
+To get an overview of what this package can do, see the example at the
+bottom.
+</p>
+<h3 id="hdr-Timecode__A_History">Timecode, A History</h3>
+<p>
+But first: what is timecode?
+</p>
+<p>
+If you&#39;re already familiar with timecode, it&#39;s history, and it&#39;s flavors, feel free to
+skip this section.
+</p>
+<p>
+Back in the days of film, a running strip of numbers ran along the edge of the film
+stock to uniquely identify each frame, called
+keycode (<a href="https://en.wikipedia.org/wiki/Keykode">https://en.wikipedia.org/wiki/Keykode</a>)
+</p>
+<p>
+Keycode was essential to the film editing process. The raw negative of a film is
+irreplaceable: you loose quality each time you make a copy. Editing film is necessarily
+a destructive process (<a href="https://nofilmschool.com/2017/06/editing-on-a-flatbed">https://nofilmschool.com/2017/06/editing-on-a-flatbed</a>), and
+often required multiple iterations. It would be just a tad nerve-wracking to take a pair
+of scissors and some glue to the one-of-a-kind film reels straight out of the camera
+on set, then running it over and over through a flatbed.
+</p>
+<p>
+To avoid potential disaster, editors made their cut of the film using copies of the
+raw negative, called a work print (<a href="https://en.wikipedia.org/wiki/Workprint">https://en.wikipedia.org/wiki/Workprint</a>), allowing
+the editor to work without fear of sinking a project from slicing, dicing, and wearing
+at the film.
+</p>
+<p>
+When the edit was complete, it was necessary to know *exactly* where the edits had been
+made, so it could be recreated with the raw negative for finishing. A *cut list* would
+be written out, with the exact reels and keycodes for every cut, and would be used to
+make an exact duplicate of the editor&#39;s work print with the mint condition raw negative.
+</p>
+<p>
+In video and digital filmmaking, the same approach is used. Massive RAW files from a
+RED, ARRI, Sony, or other cinema camera are rendered down to more manageable files an
+Editor&#39;s machine won&#39;t choke on. Once the edit is complete, the raw files are
+re-assembled using a digital cutlist on a powerful machine for finishing out the film.
+</p>
+<p>
+In film, we referenced *keycode* to know exactly what frame was being displayed on
+screen at any given time. In digital video, we reference the *timecode* of a given
+frame.
+</p>
+<p>
+For a technical deep-dive into the many flavors of timecode, check out
+Frame.io&#39;s excellent blogpost on the subject:
+<a href="https://blog.frame.io/2017/07/17/timecode-and-frame-rates">https://blog.frame.io/2017/07/17/timecode-and-frame-rates</a>.
+</p>
+<h3 id="hdr-Organization">Organization</h3>
+<p>
+This package is broken into two subpackages:
+</p>
+<p>
+• framerate: framerate types and functions
+</p>
+<p>
+• timecode: timecode types and functions
+</p>
+<p>
+See the subdirectories below.
+</p>
+<h3 id="hdr-Demo">Demo</h3>
+<p>
+See a brief overview of this package by expanding the example below:
+</p>
+
+				<div id="example_" class="toggle">
+	<div class="collapsed">
+		<p class="exampleHeading toggleButton">▹ <span class="text">Example</span></p>
+	</div>
+	<div class="expanded">
+		<p class="exampleHeading toggleButton">▾ <span class="text">Example</span></p>
+		
+		
+		
+			<p>Code:</p>
+			<pre class="code"><span class="comment">// It&#39;s easy to make a new 23.98 NTSC Timecode.</span>
+timecode, err := tc.FromTimecode(&#34;01:00:00:00&#34;, rate.F23_98)
+if err != nil {
+    panic(fmt.Errorf(&#34;error parsing timecode: %w&#34;, err))
+}
+
+<span class="comment">// 01:00:00:00 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// We can get all sorts of ways to represent the timecode.</span>
+
+<span class="comment">// 01:00:00:00</span>
+fmt.Println(timecode.Timecode())
+
+<span class="comment">// 86400</span>
+fmt.Println(timecode.Frames())
+
+<span class="comment">// 18018/5</span>
+fmt.Println(timecode.Seconds())
+
+<span class="comment">// 01:00:03.6</span>
+fmt.Println(timecode.Runtime(9))
+
+<span class="comment">// 915372057600000</span>
+fmt.Println(timecode.PremiereTicks())
+
+<span class="comment">// 5400+00</span>
+fmt.Println(timecode.FeetAndFrames())
+
+<span class="comment">// We can inspect the framerate:</span>
+
+<span class="comment">// 24000/1001</span>
+fmt.Println(timecode.Rate().Playback())
+
+<span class="comment">// 24/1</span>
+fmt.Println(timecode.Rate().Timebase())
+
+<span class="comment">// NTSC NDF</span>
+fmt.Println(timecode.Rate().NTSC())
+
+<span class="comment">// Parsing is flexible:</span>
+
+<span class="comment">// Partial timecodes:</span>
+timecode, _ = tc.FromTimecode(&#34;3:12&#34;, rate.F23_98)
+
+<span class="comment">// 00:00:03:12 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// Frames:</span>
+timecode = tc.FromFrames(24, rate.F23_98)
+
+<span class="comment">// 00:00:01:00 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// Seconds:</span>
+timecode = tc.FromSeconds(big.NewRat(3, 2), rate.F23_98)
+
+<span class="comment">// 00:00:01:12 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// Premiere Ticks:</span>
+timecode = tc.FromPremiereTicks(254016000000, rate.F23_98)
+
+<span class="comment">// 00:00:01:00 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// Runtime:</span>
+timecode, _ = tc.FromRuntime(&#34;01:00:00.5&#34;, rate.F23_98)
+
+<span class="comment">// 00:59:56:22 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// Feet + Frames:</span>
+timecode, _ = tc.FromFeetAndFrames(&#34;213+07&#34;, rate.F23_98)
+
+<span class="comment">// 00:02:22:07 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// We can add two timecodes:</span>
+timecode, _ = tc.FromTimecode(&#34;17:23:13:02&#34;, rate.F23_98)
+other, _ := tc.FromTimecode(&#34;01:00:00:00&#34;, rate.F23_98)
+
+timecode = timecode.Add(other)
+
+<span class="comment">// 18:23:13:02 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// We can subtract too.</span>
+timecode = timecode.Sub(other)
+
+<span class="comment">// 17:23:13:02 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// It&#39;s easy to compare two timecodes:</span>
+
+<span class="comment">// GT (1)</span>
+fmt.Println(timecode.Cmp(other))
+
+<span class="comment">// We can multiply:</span>
+timecode = timecode.Mul(big.NewRat(2, 1))
+
+<span class="comment">// 34:46:26:04 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// ... divide...</span>
+timecode = timecode.Div(big.NewRat(2, 1))
+
+<span class="comment">// 17:23:13:02 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// and even get the remainder of division</span>
+dividend, remainder := timecode.DivMod(big.NewRat(3, 2))
+
+<span class="comment">// DIVIDEND: 11:35:28:17 @ 23.98 NTSC NDF</span>
+<span class="comment">// REMAINDER: 00:00:00:01 @ 23.98 NTSC NDF</span>
+fmt.Println(&#34;DIVIDEND:&#34;, dividend)
+fmt.Println(&#34;REMAINDER:&#34;, remainder)
+
+<span class="comment">// We can make a timecode negative:</span>
+timecode = timecode.Neg()
+
+<span class="comment">// -17:23:13:02 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// Or get it&#39;s absolute value:</span>
+timecode = timecode.Abs()
+
+<span class="comment">// 17:23:13:02 @ 23.98 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// We can make dropframe timecode for 29.97 or 59.94 using one of the pre-set</span>
+<span class="comment">// framerates.</span>
+dropFrame := tc.FromFrames(15000, rate.F29_97Df)
+
+<span class="comment">// 00:08:20;18 @ 29.97 NTSC DF</span>
+<span class="comment">// NTSC DF</span>
+fmt.Println(dropFrame)
+fmt.Println(dropFrame.Rate().NTSC())
+
+<span class="comment">// We can make new timecodes with arbitrary framerates if we want:</span>
+framerate, _ := rate.FromInt(137, rate.NTSCNone)
+timecode, _ = tc.FromTimecode(&#34;01:00:00:00&#34;, framerate)
+
+<span class="comment">// 493200</span>
+fmt.Println(timecode.Frames())
+
+<span class="comment">// We can make NTSC values for timebases and playback speeds that do not ship with</span>
+<span class="comment">// this crate:</span>
+framerate, _ = rate.FromInt(120, rate.NTSCNonDrop)
+timecode, _ = tc.FromTimecode(&#34;01:00:00:00&#34;, framerate)
+
+<span class="comment">// 01:00:00:00 @ 119.88 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment">// We can also rebase them using another framerate:</span>
+timecode = timecode.Rebase(rate.F59_94Ndf)
+
+<span class="comment">// 02:00:00:00 @ 59.94 NTSC NDF</span>
+fmt.Println(timecode)
+
+<span class="comment"></pre>
+			
+			<p>Output:</p>
+			<pre class="output">01:00:00:00 @ 23.98 NTSC NDF
+01:00:00:00
+86400
+18018/5
+01:00:03.6
+915372057600000
+5400+00
+24000/1001
+24/1
+NTSC NDF
+00:00:03:12 @ 23.98 NTSC NDF
+00:00:01:00 @ 23.98 NTSC NDF
+00:00:01:12 @ 23.98 NTSC NDF
+00:00:01:00 @ 23.98 NTSC NDF
+00:59:56:22 @ 23.98 NTSC NDF
+00:02:22:07 @ 23.98 NTSC NDF
+18:23:13:02 @ 23.98 NTSC NDF
+17:23:13:02 @ 23.98 NTSC NDF
+GT
+34:46:26:04 @ 23.98 NTSC NDF
+17:23:13:02 @ 23.98 NTSC NDF
+DIVIDEND: 11:35:28:17 @ 23.98 NTSC NDF
+REMAINDER: 00:00:00:01 @ 23.98 NTSC NDF
+-17:23:13:02 @ 23.98 NTSC NDF
+17:23:13:02 @ 23.98 NTSC NDF
+00:08:20;18 @ 29.97 NTSC DF
+NTSC DF
+493200
+01:00:00:00 @ 119.88 NTSC NDF
+02:00:00:00 @ 59.94 NTSC NDF
+</pre>
+			
+		
+	</div>
+</div>
+
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+		<div id="pkg-examples">
+			<h3>Examples</h3>
+			<div class="js-expandAll expandAll collapsed">(Expand All)</div>
+			<dl>
+			
+			<dd><a class="exampleLink" href="vtc-go.html#example_">Package</a></dd>
+			
+			</dl>
+		</div>
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="http://localhost:6161/src/github.com/opencinemac/vtc-go/doc.go">doc.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+	
+
+	
+
+
+
+
+
+	
+	
+		<h2 id="pkg-subdirectories">Subdirectories</h2>
+	
+	<div class="pkg-dir">
+		<table>
+			<tr>
+				<th class="pkg-name">Name</th>
+				<th class="pkg-synopsis">Synopsis</th>
+			</tr>
+
+			
+			<tr>
+				<td colspan="2"><a href="http://localhost:6161/pkg/github.com/opencinemac/">..</a></td>
+			</tr>
+			
+
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="godoc.5.html">pkg</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="godoc.3.html">rate</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package rate offers methods and types for parsing and constructing framerate values.
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="godoc.4.html">tc</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						Package tc offers methods and types for parsing and constructing timecode values.
+					</td>
+				</tr>
+			
+		</table>
+	</div>
+
+
+
+<div id="footer">
+Build version go1.13.5.<br>
+Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
+the content of this page is licensed under the
+Creative Commons Attribution 3.0 License,
+and code is licensed under a <a href="http://localhost:6161/LICENSE">BSD license</a>.<br>
+<a href="http://localhost:6161/doc/tos.html">Terms of Service</a> |
+<a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+</div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+</body>
+</html>
