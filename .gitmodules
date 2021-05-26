@@ -1,3 +1,6 @@
 [submodule "zdevelop/make_scripts"]
 	path = zdevelop/make_scripts
 	url = https://github.com/opencinemac/make_scripts.git
+[submodule "pkg/internal/testdata/test-timelines"]
+	path = pkg/internal/testdata/test-timelines
+	url = https://github.com/opencinemac/test-timelines
