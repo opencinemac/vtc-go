@@ -1,4 +1,4 @@
-<h1 align="center">occlib-go</h1>
+<h1 align="center">vtc-go</h1>
 <p align="center">
     <img height=150 class="heightSet" align="center" src="https://raw.githubusercontent.com/opencinemac/vtc-py/master/zdocs/source/_static/logo1.svg"/>
 </p>
@@ -10,7 +10,7 @@
 </p>
 <p align="center">
     <a href="https://goreportcard.com/report/github.com/opencinemac/vtc-go"><img src="https://goreportcard.com/badge/github.com/opencinemac/vtc-go" alt="click to see report card"></a>
-    <a href="https://codeclimate.com/github/opencinemac/vtc-go/maintainability"><img src="https://api.codeclimate.com/v1/badges/b3123a4503e9943dafec/maintainability" alt="click to see report"/></a>
+    <a href="https://codeclimate.com/github/opencinemac/vtc-go/maintainability"><img src="https://api.codeclimate.com/v1/badges/72bffc76c41f12c9ab71/maintainability" alt="click here to see report"/></a>
 </p>
 <p align="center">
     <a href="https://github.com/opencinemac/vtc-go"><img src="https://img.shields.io/github/go-mod/go-version/opencinemac/vtc-go" alt="Repo"></a>
