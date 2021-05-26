@@ -52,9 +52,9 @@ Organization
 
 This package is broken into two subpackages:
 
-• framerate: framerate types and functions
+• rate: framerate types and functions
 
-• timecode: timecode types and functions
+• tc: timecode types and functions
 
 See the subdirectories below.
 
