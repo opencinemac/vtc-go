@@ -60,7 +60,9 @@ func (tc Timecode) Add(other Timecode) Timecode {
 	}
 }
 
-// Sub subtracts a timecode from the caller.
+// Sub subtracts a timecode from the caller using their real-world seconds values.
+//
+// The returned timecode will contain the framerate of the calling timecode.
 func (tc Timecode) Sub(other Timecode) Timecode {
 	seconds := tc.Seconds()
 	seconds = seconds.Sub(seconds, other.seconds)
