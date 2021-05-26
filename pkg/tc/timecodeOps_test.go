@@ -362,3 +362,7 @@ func TestTimecode_Rebase(t *testing.T) {
 		})
 	}
 }
+
+func TestCmp_StringInvalid(t *testing.T) {
+	assert.Equal(t, "[INVALID]", tc.Cmp(100).String())
+}
