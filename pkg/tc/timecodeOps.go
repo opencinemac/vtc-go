@@ -11,6 +11,20 @@ import (
 // to, or greater than another value.
 type Cmp int
 
+// String implements fmt.Stringer.
+func (cmp Cmp) String() string {
+	switch cmp {
+	case CmpLt:
+		return "LT"
+	case CmpEq:
+		return "EQ"
+	case CmpGt:
+		return "GT"
+	default:
+		return "[INVALID]"
+	}
+}
+
 const (
 	// CmpLt is returned when a Timecode is less than another value.
 	CmpLt Cmp = iota - 1

@@ -8,11 +8,11 @@ import (
 	"strconv"
 )
 
-// FromSecondsRat creates a new Timecode based on a rational representation of the
+// FromSeconds creates a new Timecode based on a rational representation of the
 // seconds count.
 //
 // seconds will be rounded to the nearest whole-frame based on rate.
-func FromSecondsRat(seconds *big.Rat, framerate rate.Framerate) Timecode {
+func FromSeconds(seconds *big.Rat, framerate rate.Framerate) Timecode {
 	playback := framerate.Playback()
 	playbackDivisor := new(big.Rat).Inv(playback)
 	// If our seconds are not cleanly divisible by the length of a single frame, we need
@@ -60,7 +60,7 @@ func FromFrames(frames int64, framerate rate.Framerate) Timecode {
 	framesRat := new(big.Rat).SetInt64(frames)
 	seconds := framesRat.Mul(framesRat, playbackDivisor)
 
-	return FromSecondsRat(seconds, framerate)
+	return FromSeconds(seconds, framerate)
 }
 
 // FromTimecode parses a new timecode value from a string.
@@ -195,7 +195,7 @@ func FromRuntime(runtime string, framerate rate.Framerate) (Timecode, error) {
 		seconds = seconds.Neg(seconds)
 	}
 
-	return FromSecondsRat(seconds, framerate), nil
+	return FromSeconds(seconds, framerate), nil
 }
 
 // feetAndFramesRegex will be used to parse our feet and frames value.
@@ -238,5 +238,5 @@ var ticksDivisor = new(big.Rat).Inv(premiereTicksPerSecondsRat)
 func FromPremiereTicks(ticks int64, framerate rate.Framerate) Timecode {
 	ticksRat := big.NewRat(ticks, 1)
 	secondsRat := ticksRat.Mul(ticksRat, ticksDivisor)
-	return FromSecondsRat(secondsRat, framerate)
+	return FromSeconds(secondsRat, framerate)
 }
